@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="{% static 'base-styles.css' %}" />
+    {% block stylesheet %}{% endblock stylesheet %}
+
+    <title>{% block title %}Twitter{% endblock title %}</title>
+</head>
+<body>
+    <nav>
+        <h1>Twitter</h1>
+        <div class="nav-btn-list">
+            <a href="#" class="nav-link" id="home-button">
+                <div class="nav-button btn">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    <p>Home</p>        
+                </div>
+            </a>
+            <a href="#" class="nav-link" id="profile-button">
+                <div class="nav-button btn">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <p>Profile</p>        
+                </div>
+            </a>
+        </div>
+        <div class="post-btn btn">Post</div>
+        <div class="profile-preview btn">
+            <div class="profile-pic"></div>
+            <div class="name-container">
+                <p class="name">Name</p>
+                <p class="handle">handle</p>
+            </div>
+        </div>
+    </nav>
+    <section class="timeline">{% block content %}{% endblock content %}</section>
+</body>
+</html>
