@@ -16,6 +16,11 @@ body {
     display: flex;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 nav {    
     font-size: 20px;
     font-weight: 700;
@@ -78,10 +83,12 @@ nav {
     background-color: var(--twitter-blue-hover);
 }
 
-.profile-preview {
+.profile-preview-link {
     margin-top: auto;
-    padding: 10px;
+}
 
+.profile-preview {
+    padding: 10px;
     display: flex;
 }
 
