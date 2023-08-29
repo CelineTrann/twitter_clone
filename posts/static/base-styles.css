@@ -71,6 +71,7 @@ nav {
     padding: 10px;
     text-align: center;
     background-color: var(--twitter-blue);
+    color: #fff;
 }
 
 .post-btn:hover {
@@ -93,10 +94,10 @@ nav {
     border-radius: 50%;
     height: 3rem;
     width: 3rem;
+    margin-right: 15px;
 }
 
 .name-container {
-    padding-left: 15px;
     vertical-align: center;
 }
 
@@ -110,7 +111,6 @@ nav {
 }
 
 .timeline {
-    background-color: aqua;
     width: 45%;
 
     border-style: none solid;

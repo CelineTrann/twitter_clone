@@ -2,3 +2,39 @@
     padding: 20px;
     border-bottom: 1px solid black;
 }
+
+.direct-post {
+    padding: 10px 15px;
+    border-bottom: 1px solid black;
+}
+
+.direct-post-top {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+/* TODO: limit input length */
+.post-text {
+    width: 90%;
+    font-size: 20px;
+    vertical-align: middle;
+
+    border: none;
+    outline: none; 
+    user-select: text; 
+    white-space: pre-wrap; 
+    overflow-wrap: break-word;
+}
+
+[contentEditable=true]:empty:before {
+    content: attr(data-text)
+}
+
+.direct-post-bottom {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.direct-post-btn {
+    width: 15%;
+}
