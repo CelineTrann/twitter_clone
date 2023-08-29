@@ -112,8 +112,8 @@ nav {
 .timeline {
     background-color: aqua;
     width: 45%;
+
     border-style: none solid;
     border-width: 1px;
     border-color: var(--gray-hover);
-
 }
