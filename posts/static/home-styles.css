@@ -13,17 +13,17 @@
     margin-bottom: 10px;
 }
 
-/* TODO: limit input length */
 .post-text {
     width: 90%;
     font-size: 20px;
-    vertical-align: middle;
+    overflow-x: hidden;
 
     border: none;
     outline: none; 
     user-select: text; 
     white-space: pre-wrap; 
     overflow-wrap: break-word;
+    user-select: text;
 }
 
 [contentEditable=true]:empty:before {

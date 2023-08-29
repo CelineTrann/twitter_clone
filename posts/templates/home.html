@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
-{% block stylesheet %}
+{% block head %}
     <link rel="stylesheet" href="/static/home-styles.css" />
-{% endblock stylesheet %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/static/home.js"></script>
+{% endblock head %}
 {% block title %}Home{% endblock title %}
 
 {% block content %}
@@ -12,9 +14,11 @@
     <div class="direct-post-top">
         <div class="profile-pic"></div> 
         <div 
+            id="editableDiv"
             class="post-text"
             multiline="true"
             contenteditable="true"
+            maxlength="225"
             data-text="What is happening?!"
         ></div>
     </div>
