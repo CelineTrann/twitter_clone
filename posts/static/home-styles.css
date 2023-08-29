@@ -32,7 +32,12 @@
 
 .direct-post-bottom {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.direct-post-bottom p {
+    margin: 0 5px;
 }
 
 .direct-post-btn-link {
