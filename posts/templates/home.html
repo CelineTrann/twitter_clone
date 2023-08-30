@@ -28,6 +28,16 @@
             <div class="post-btn btn">Post</div>
         </a>
     </div>
+
+    <h1>Tweets</h1>
+    <ul>
+        {% for tweet in Tweets %}
+        <li>
+            {{ tweet.content }}
+        </li>
+        {% endfor %}
+    </ul>
+
 </div>
 
 {% endblock content %}
