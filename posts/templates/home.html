@@ -28,16 +28,22 @@
             <div class="post-btn btn">Post</div>
         </a>
     </div>
-
-    <h1>Tweets</h1>
-    <ul>
-        {% for tweet in Tweets %}
-        <li>
-            {{ tweet.content }}
-        </li>
-        {% endfor %}
-    </ul>
-
 </div>
+{% for tweet in Tweets %}
+<div class="content">
+    <div class="profile-pic"></div>
+    <div class="content">
+        <div class="header">
+            <p>Name</p>
+            <p>{{ tweet.user }}</p>
+            <p>{{ tweet.created_at }}</p>
+        </div>
+        <p>{{ tweet.content }}</p>
+    </div>
+    <div class="icons">
+
+    </div>
+</div>
+{% endfor %}
 
 {% endblock content %}
