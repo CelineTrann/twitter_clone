@@ -11,7 +11,8 @@
     <h1>Home</h1>
 </div>
 <div class="direct-post timeline-segment">
-    <form action="" method="post">
+    <form action="post/" method="post" id="tweet-form" >
+        {% csrf_token %}
         <div class="direct-post-top">
             <div class="profile-pic"></div> 
             <div 
@@ -22,7 +23,7 @@
                 maxlength="255"
                 data-text="What is happening?!"
             ></div>
-            <textarea id="my-textarea" style="display:none"></textarea>
+            <textarea name="text-area" id="form-textarea" style="display:none"></textarea>
         </div>
         <div class="direct-post-bottom">
             <p id="char-count"> 0 / 255 characters</p>

@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    $("#tweet-form").submit( function (event) {
+        $("#form-textarea").val($("#editableDiv").text());
+    });
 
     $(".post-text").on('keydown paste', function (event) {
         var cntMaxLength = parseInt($(this).attr('maxlength'));
