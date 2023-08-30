@@ -10,7 +10,7 @@
 <div class="timeline-header">
     <h1>Home</h1>
 </div>
-<div class="direct-post">
+<div class="direct-post timeline-segment">
     <div class="direct-post-top">
         <div class="profile-pic"></div> 
         <div 
@@ -30,20 +30,33 @@
     </div>
 </div>
 {% for tweet in Tweets %}
-<div class="content">
-    <div class="profile-pic"></div>
-    <div class="content">
-        <div class="header">
-            <p>Name</p>
-            <p>{{ tweet.user }}</p>
-            <p>{{ tweet.created_at }}</p>
+<a href="">
+    <div class="tweet timeline-segment">
+        <div class="profile-pic"></div> 
+        <div class="content">
+            <div class="header">
+                <span><b>Name</b></span>
+                <span class="post-username">@{{ tweet.user }}</span>
+                <span class="post-date">• {{ tweet.created_at |date:"M d" }}</span>
+            </div>
+            <p>{{ tweet.content }}</p>
+            <div class="post-icons">
+                <span class="icon comment-icon">
+                    <i class="fa fa-comment-o" aria-hidden="true"></i> 1
+                </span>
+                <span class="icon retweet-icon">
+                    <i class="fa fa-retweet" aria-hidden="true"></i> 1
+                </span>
+                <span class="icon heart-icon">
+                    <i class="fa fa-heart-o" aria-hidden="true"></i> 1
+                </span>
+                <span class="icon bar-icon">
+                    <i class="fa fa-bar-chart" aria-hidden="true"></i> 1
+                </span>
+            </div>
         </div>
-        <p>{{ tweet.content }}</p>
     </div>
-    <div class="icons">
-
-    </div>
-</div>
+</a>
 {% endfor %}
 
 {% endblock content %}

@@ -2,6 +2,9 @@
     --twitter-blue: hsl(204, 87.6%, 52.7%);
     --twitter-blue-hover: hsl(204, 87.6%, 45%);
     --gray-hover: hsl(0, 0%, 80%);
+    --gray-text: gray;
+    --heart-red: red;
+    --retweet-green: green;
 }
 
 *, ::before, ::after {
@@ -109,7 +112,7 @@ nav {
 }
 
 .handle {
-    color: gray;
+    color: var(--gray-text);
     font-size: 0.7em;
 }
 
