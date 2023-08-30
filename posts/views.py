@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Tweet, User
 
 from django.http import HttpResponse
@@ -10,5 +10,6 @@ def home(request):
 
 def post(request):
     if request.method == 'POST':
-        content = request.POST['text-area']
-        return HttpResponse(content)
+        tweet = Tweet(user=request.user, content=request.POST['text-area'])
+        tweet.save()
+        return redirect("home")
