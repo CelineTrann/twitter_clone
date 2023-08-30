@@ -11,23 +11,28 @@
     <h1>Home</h1>
 </div>
 <div class="direct-post timeline-segment">
-    <div class="direct-post-top">
-        <div class="profile-pic"></div> 
-        <div 
-            id="editableDiv"
-            class="post-text"
-            multiline="true"
-            contenteditable="true"
-            maxlength="255"
-            data-text="What is happening?!"
-        ></div>
-    </div>
-    <div class="direct-post-bottom">
-        <p id="char-count"> 0 / 255 characters</p>
-        <a href="#" class="direct-post-btn-link">
-            <div class="post-btn btn">Post</div>
-        </a>
-    </div>
+    <form action="" method="post">
+        <div class="direct-post-top">
+            <div class="profile-pic"></div> 
+            <div 
+                id="editableDiv"
+                class="post-text"
+                multiline="true"
+                contenteditable="true"
+                maxlength="255"
+                data-text="What is happening?!"
+            ></div>
+            <textarea id="my-textarea" style="display:none"></textarea>
+        </div>
+        <div class="direct-post-bottom">
+            <p id="char-count"> 0 / 255 characters</p>
+            <input 
+                type="submit" 
+                value="Post" 
+                class="btn post-btn direct-post-btn-link"
+            />
+        </div>
+    </form>
 </div>
 {% for tweet in Tweets %}
 <a href="">

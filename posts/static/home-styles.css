@@ -43,6 +43,8 @@
 
 .direct-post-btn-link {
     width: 15%;
+    border: none;
+    font-weight: bold;
 }
 
 /* Timeline section */

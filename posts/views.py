@@ -5,3 +5,6 @@ from .models import Tweet, User
 def home(request):
     items = Tweet.objects.all().order_by("-updated_at")
     return render(request, "home.html", {"Tweets": items})
+
+def tweet(request, tweet_id):
+    pass
