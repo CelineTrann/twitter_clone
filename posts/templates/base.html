@@ -7,12 +7,21 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="{% static 'base-styles.css' %}" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/static/base.js"></script>
     
     {% block head %}{% endblock head %}
 
     <title>{% block title %}Twitter{% endblock title %}</title>
 </head>
 <body>
+    <div class="post-modal">
+        <div class="post-modal-content">
+            <span class="close" id="post-modal-close">&times;</span>
+            <p>Hello</p>
+        </div>
+    </div>
     <nav>
         <h1>Twitter</h1>
         <div class="nav-btn-list">
@@ -29,9 +38,7 @@
                 </div>
             </a>
         </div>
-        <a href="#">
-            <div class="post-btn btn">Post</div>
-        </a>
+        <div class="post-btn btn" id="nav-post-btn">Post</div>
         <a href="#" class="profile-preview-link">
             <div class="profile-preview btn">
                 <div class="profile-pic"></div>
