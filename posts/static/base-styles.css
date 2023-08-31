@@ -185,6 +185,8 @@ nav {
     border: none;
     outline: none;
     resize: none;
+    height: auto;
+    overflow: hidden;
 }
 
 .post-bottom {

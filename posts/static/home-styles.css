@@ -8,6 +8,10 @@
     border-bottom: 1px solid black;
 }
 
+.post-top-no-border {
+    display: flex;
+}
+
 /* Timeline section */
 .tweet {
     display: flex;

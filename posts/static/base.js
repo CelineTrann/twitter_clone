@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    // Open Post Modal
+        // Open Post Modal
     $("#nav-post-btn").on("click", function () {
         $(".post-modal").show();
     })
@@ -24,5 +24,9 @@ $(document).ready(function () {
         } else {
             $('.post-btn-submit').prop('disabled', true);
         }
+
+        // Auto resize text area
+        this.style.height = 'auto'; 
+        this.style.height = (this.scrollHeight) + 'px'; 
     });
 })
