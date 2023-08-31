@@ -19,6 +19,7 @@
 
 .tweet:hover {
     background-color: var(--gray-hover);
+    cursor: pointer;
 }
 
 .content {
