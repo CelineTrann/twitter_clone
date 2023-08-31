@@ -8,45 +8,6 @@
     border-bottom: 1px solid black;
 }
 
-/* Create Tweet Section */
-.direct-post-top {
-    display: flex;
-    margin-bottom: 10px;
-}
-
-.post-text {
-    width: 90%;
-    font-size: 20px;
-    overflow-x: hidden;
-
-    border: none;
-    outline: none; 
-    user-select: text; 
-    white-space: pre-wrap; 
-    overflow-wrap: break-word;
-    user-select: text;
-}
-
-[contentEditable=true]:empty:before {
-    content: attr(data-text)
-}
-
-.direct-post-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.direct-post-bottom p {
-    margin: 0 5px;
-}
-
-.direct-post-btn-link {
-    width: 15%;
-    border: none;
-    font-weight: bold;
-}
-
 /* Timeline section */
 .tweet {
     display: flex;

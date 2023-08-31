@@ -10,26 +10,18 @@
     <h1>Home</h1>
 </div>
 <div class="direct-post timeline-segment">
-    <form action="post/" method="post" id="tweet-form" >
+    <form action="post/" method="post" class="post-tweet-form">
         {% csrf_token %}
-        <div class="direct-post-top">
+        <div class="post-top">
             <div class="profile-pic"></div> 
-            <div 
-                id="editableDiv"
-                class="post-text"
-                multiline="true"
-                contenteditable="true"
-                maxlength="255"
-                data-text="What is happening?!"
-            ></div>
-            <textarea name="text-area" id="form-textarea" style="display:none"></textarea>
+            {{ form.content }}
         </div>
-        <div class="direct-post-bottom">
-            <p id="char-count"> 0 / 255 characters</p>
+        <div class="post-bottom">
+            <p class="char-count"> 0 / 255 characters</p>
             <input 
                 type="submit" 
                 value="Post" 
-                class="btn post-btn direct-post-btn-link"
+                class="btn post-btn post-btn-submit"
             />
         </div>
     </form>

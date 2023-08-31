@@ -12,13 +12,13 @@ $(document).ready(function () {
     });
 
     // Post Character Count
-    $("#id_content").keyup(function () {
-        $("#char-count").text($(this).val().length + " / 255 characters");
+    $(".tweet-content").keyup(function () {
+        $(".char-count").text($(this).val().length + " / 255 characters");
     });
 
     // Disable & Enable Post Button
     $('.post-btn-submit').prop('disabled', true);
-    $('#id_content').on('input', function () {
+    $('.tweet-content').on('input', function () {
         if ($(this).val().trim() !== '') {
             $('.post-btn-submit').prop('disabled', false);
         } else {
