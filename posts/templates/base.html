@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="{% static 'base-styles.css' %}" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/static/base.js"></script>
+    
+    {% block head %}{% endblock head %}
+
+    <title>{% block title %}Twitter{% endblock title %}</title>
+</head>
+<body>
+    <div class="post-modal">
+        <div class="post-modal-content">
+            <p class="close" id="post-modal-close">&times;</p>
+            <form action="post/" method="post" class="post-tweet-form">
+                {% csrf_token %}
+                <div class="post-top">
+                    <img 
+                        src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
+                        alt="profile picture" 
+                        class="profile-pic"
+                    ></img> 
+                    {{ form.content }}
+                </div>
+                <div class="post-bottom">
+                    <p class="char-count"> 0 / 255 characters</p>
+                    <input 
+                        type="submit" 
+                        value="Post" 
+                        class="btn post-btn post-btn-submit"
+                    />
+                </div>
+            </form>
+        </div>
+    </div>
+    <nav>
+        <h1>Twitter</h1>
+        <div class="nav-btn-list">
+            <a href="/" class="nav-link" id="home-button">
+                <div class="nav-button btn">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    <p>Home</p>        
+                </div>
+            </a>
+            <a href="#" class="nav-link" id="profile-button">
+                <div class="nav-button btn">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <p>Profile</p>        
+                </div>
+            </a>
+        </div>
+        <div class="post-btn btn" id="nav-post-btn">Post</div>
+        <a href="#" class="profile-preview-link">
+            <div class="profile-preview btn">
+                <img 
+                    src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
+                    alt="profile picture" 
+                    class="profile-pic"
+                ></img> 
+                <div class="name-container">
+                    <p class="name">Name</p>
+                    <p class="handle">handle</p>
+                </div>
+            </div>
+        </a>
+    </nav>
+    <section class="timeline">
+        {% block content %}{% endblock content %}
+    </section>
+</body>
+</html>

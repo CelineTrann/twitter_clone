@@ -1,0 +1,210 @@
+:root {
+    --background: #fff;
+    --twitter-blue: hsl(204, 87.6%, 52.7%);
+    --twitter-blue-hover: hsl(204, 87.6%, 45%);
+    --twitter-blue-disabled: hsla(204, 88%, 53%, 50%);
+    --gray-hover: hsl(0, 0%, 80%);
+    --gray-text: gray;
+    --heart-red: red;
+    --retweet-green: green;
+}
+
+*, ::before, ::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    background-color: var(--background);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+nav {    
+    font-size: 20px;
+    font-weight: 700;
+    height: 100vh;
+    width: 20%;
+    margin-left: 10%;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    position: sticky;
+    top: 0;
+}
+
+.btn {
+    border-radius: 400px;
+}
+
+.nav-btn-list {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+}
+
+.nav-button {
+    padding: 10px 5px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-button i {
+    padding: 0 0.5rem;
+}
+
+.nav-button p {
+    padding-right: 5px;
+}
+
+.nav-button:hover {
+    background-color: var(--gray-hover);
+}
+
+.post-btn {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--twitter-blue);
+    color: #fff;
+}
+
+.post-btn:hover {
+    background-color: var(--twitter-blue-hover);
+    cursor: pointer;
+}
+
+.profile-preview-link {
+    margin-top: auto;
+}
+
+.profile-preview {
+    padding: 10px;
+    display: flex;
+}
+
+.profile-preview:hover {
+    background-color: var(--gray-hover);
+}
+
+.profile-pic {
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    margin-right: 15px;
+}
+
+.name-container {
+    vertical-align: center;
+}
+
+.handle {
+    color: var(--gray-text);
+    font-size: 0.7em;
+}
+
+.handle::before {
+    content: "@";
+}
+
+.timeline {
+    width: 45%;
+
+    border-style: none solid;
+    border-width: 1px;
+    border-color: var(--gray-hover);
+}
+
+/* Modal */
+.post-modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.post-modal-content {
+    background-color: var(--background);
+    margin: 5% auto; 
+    padding: 10px;
+    width: 40%; 
+    border-radius: 10px;
+}
+  
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Create Tweet Form */
+.post-tweet-form {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+}
+
+.post-top {
+    display: flex;
+    border-bottom: 1px solid black;
+}
+
+.tweet-content {
+    flex-grow: 1;
+    font-size: 20px;
+
+    border: none;
+    outline: none;
+    resize: none;
+    height: auto;
+    overflow: hidden;
+}
+
+.post-bottom {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-bottom p {
+    margin: 0 5px;
+}
+
+.post-btn-submit {
+    width: 15%;
+    border: none;
+    font-weight: bold;
+}
+
+.post-btn-submit:disabled {
+    background-color: var(--twitter-blue-disabled);
+}

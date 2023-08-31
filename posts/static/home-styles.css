@@ -1,0 +1,54 @@
+.timeline-header {
+    padding: 20px;
+    border-bottom: 1px solid black;
+}
+
+.timeline-segment {
+    padding: 10px 15px;
+    border-bottom: 1px solid black;
+}
+
+.post-top-no-border {
+    display: flex;
+}
+
+/* Timeline section */
+.tweet {
+    display: flex;
+}
+
+.tweet:hover {
+    background-color: var(--gray-hover);
+    cursor: pointer;
+}
+
+.content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-username, .post-date {
+    color: var(--gray-text);
+}
+
+.post-icons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon {
+    width: 15%;
+}
+
+.comment-icon:hover, .bar-icon:hover {
+    color: var(--twitter-blue);
+}
+
+.retweet-icon:hover {
+    color: var(--retweet-green);
+}
+
+.heart-icon:hover {
+    color: var(--heart-red);
+}
