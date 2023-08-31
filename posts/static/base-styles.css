@@ -2,6 +2,7 @@
     --background: #fff;
     --twitter-blue: hsl(204, 87.6%, 52.7%);
     --twitter-blue-hover: hsl(204, 87.6%, 45%);
+    --twitter-blue-disabled: hsla(204, 88%, 53%, 50%);
     --gray-hover: hsl(0, 0%, 80%);
     --gray-text: gray;
     --heart-red: red;
@@ -165,3 +166,44 @@ nav {
     cursor: pointer;
 }
 
+/* Create Tweet Form */
+.post-tweet-form {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+}
+
+.post-top {
+    display: flex;
+    border-bottom: 1px solid black;
+}
+
+.tweet-content {
+    flex-grow: 1;
+    font-size: 20px;
+
+    border: none;
+    outline: none;
+    resize: none;
+}
+
+.post-bottom {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-bottom p {
+    margin: 0 5px;
+}
+
+.post-btn-submit {
+    width: 15%;
+    border: none;
+    font-weight: bold;
+}
+
+.post-btn-submit:disabled {
+    background-color: var(--twitter-blue-disabled);
+}

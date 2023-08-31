@@ -18,8 +18,22 @@
 <body>
     <div class="post-modal">
         <div class="post-modal-content">
-            <span class="close" id="post-modal-close">&times;</span>
-            <p>Hello</p>
+            <p class="close" id="post-modal-close">&times;</p>
+            <form action="post/" method="post" class="post-tweet-form">
+                {% csrf_token %}
+                <div class="post-top">
+                    <div class="profile-pic"></div> 
+                    {{ form.content }}
+                </div>
+                <div class="post-bottom">
+                    <p id="char-count"> 0 / 255 characters</p>
+                    <input 
+                        type="submit" 
+                        value="Post" 
+                        class="btn post-btn post-btn-submit"
+                    />
+                </div>
+            </form>
         </div>
     </div>
     <nav>
