@@ -13,7 +13,11 @@
     <form action="post/" method="post" class="post-tweet-form">
         {% csrf_token %}
         <div class="post-top-no-border">
-            <div class="profile-pic"></div> 
+            <img 
+                src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
+                alt="profile picture" 
+                class="profile-pic"
+            ></img> 
             {{ form.content }}
         </div>
         <div class="post-bottom">
@@ -29,7 +33,11 @@
 {% for tweet in Tweets %}
 <a href="">
     <div class="tweet timeline-segment">
-        <div class="profile-pic"></div> 
+        <img 
+            src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
+            alt="profile picture" 
+            class="profile-pic"
+        ></img> 
         <div class="content">
             <div class="header">
                 <span><b>{{ tweet.user.first_name }}</b></span>
