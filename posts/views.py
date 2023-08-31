@@ -17,7 +17,3 @@ def post(request):
             form.save()
             return redirect("home")
         
-    # if request.method == 'POST':
-    #     tweet = Tweet(user=request.user, content=request.POST['text-area'])
-    #     tweet.save()
-    #     return redirect("home")
