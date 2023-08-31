@@ -1,13 +1,15 @@
 $(document).ready(function () {
-        // Open Post Modal
+    // Open Post Modal
     $("#nav-post-btn").on("click", function () {
         $(".post-modal").show();
+        $(".tweet-content").val("");
     })
 
     // Close Post Modal
     $("#post-modal-close, .post-modal").click(function (event) {
         if (event.target === this) {
             $(".post-modal").hide();
+            $(".tweet-content").val("");
         }
     });
 
