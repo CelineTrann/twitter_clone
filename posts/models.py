@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     display_name = models.CharField(max_length=60)
-    bio = models.CharField(max_length=255)
+    bio = models.TextField(max_length=255, blank=True)
     follows = models.ManyToManyField(
         "self",
         related_name="followed_by",
