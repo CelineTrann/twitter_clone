@@ -12,6 +12,10 @@ class Profile(models.Model):
         blank=True
     )
 
+    def __str__(self):
+        return self.user.username
+
+
 class Tweet(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, blank=True)
     content = models.CharField(max_length=255)
