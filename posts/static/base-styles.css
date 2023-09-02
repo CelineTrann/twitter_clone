@@ -120,7 +120,7 @@ nav {
 
 .handle {
     color: var(--gray-text);
-    font-size: 0.7em;
+    font-size: 0.7rem;
 }
 
 .handle::before {

@@ -12,17 +12,31 @@
     <span class="username-header"><b>{{ profile.user.username }}</b></span>
 </div>
 <div class="profile-content">
-    <div class="banner"></div>
-    <img 
-        src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
-        alt="profile picture" 
-        class="profile-pic"
-    ></img> 
+    <div class="profile-banner"></div>
+    <div class="profile-pic-pos">
+        <img 
+            src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
+            alt="profile picture" 
+            class="profile-pic overlap-banner"
+        ></img> 
+        <div class="edit-profile-container">
+            <div class="edit-profile-btn btn"><b>Edit Profile</b></div>
+        </div>
+    </div>
     <div class="profile-info">
-        <p>{{ profile.display_name }}</p>
-        <p>@{{ profile.user.username }}</p>
-        <p>{{ profile.bio }}</p>
-        <p>Joined {{ profile.user.date_joined | date:"F Y"}}</p>
+        <div class="profile-username">
+            <p class="profile-display-name"><b>{{ profile.display_name }}</b></p>
+            <p class="handle handle-profile">{{ profile.user.username }}</p>
+        </div>
+        <p class="profile-bio">{{ profile.bio }}</p>
+        <p class="join-date">
+            <span><i class="fa fa-calendar" aria-hidden="true"></i></span>
+            Joined {{ profile.user.date_joined | date:"F Y"}}
+        </p>
+    </div>
+    <div class="follow">
+        <p><b>38</b> Following</p>
+        <p><b>9</b> Followers</p>
     </div>
 </div>
 {% endblock content %}
