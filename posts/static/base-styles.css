@@ -63,6 +63,8 @@ nav {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
+    transition: background-color 0.25s;
 }
 
 .nav-button i {
@@ -83,6 +85,7 @@ nav {
     text-align: center;
     background-color: var(--twitter-blue);
     color: #fff;
+    transition: background-color 0.25s;
 }
 
 .post-btn:hover {
@@ -97,6 +100,7 @@ nav {
 .profile-preview {
     padding: 10px;
     display: flex;
+    transition: background-color 0.25s;
 }
 
 .profile-preview:hover {
@@ -123,12 +127,23 @@ nav {
     content: "@";
 }
 
+/* Timeline */
 .timeline {
     width: 45%;
 
     border-style: none solid;
     border-width: 1px;
     border-color: var(--gray-hover);
+}
+
+.timeline-header {
+    padding: 20px;
+    border-bottom: 1px solid black;
+}
+
+.timeline-segment {
+    padding: 10px 15px;
+    border-bottom: 1px solid black;
 }
 
 /* Modal */
@@ -156,6 +171,7 @@ nav {
     color: #aaa;
     font-size: 28px;
     font-weight: bold;
+    transition: color 0.25s;
 }
 
 .close:hover,

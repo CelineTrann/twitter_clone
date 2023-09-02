@@ -39,6 +39,6 @@ def post(request):
 def profile(request, username):
     modal_form = TweetForm(prefix="modal")
     profile_info = Profile.objects.get(pk=request.user.id)
-    return render(request, "profile.html", {"modal_form": modal_form, "Profile": profile_info})
+    return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info})
     
         
