@@ -19,7 +19,7 @@
     <div class="post-modal">
         <div class="post-modal-content">
             <p class="close" id="post-modal-close">&times;</p>
-            <form action="post/" method="post" class="post-tweet-form">
+            <form action="{% url 'post' %}" method="post" class="post-tweet-form">
                 {% csrf_token %}
                 <div class="post-top">
                     <img 

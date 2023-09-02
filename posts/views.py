@@ -20,11 +20,14 @@ def post(request):
             tweet = form.save(commit=False)
             tweet.user = request.user
             tweet.save()
-            return redirect("home")
         
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+                
 @login_required
 def profile(request, username):
+    form = TweetForm(prefix='modal')
     profile_info = Profile.objects.get(pk=request.user.id)
-    return render(request, "profile.html", {"Profile": profile_info})
+    return render(request, "profile.html", {"form": form, "Profile": profile_info})
     
         
