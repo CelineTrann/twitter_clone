@@ -10,7 +10,7 @@
     <h1>Home</h1>
 </div>
 <div class="direct-post timeline-segment">
-    <form action="post/" method="post" class="post-tweet-form">
+    <form action="{% url 'post' %}" method="post" class="post-tweet-form">
         {% csrf_token %}
         <div class="post-top-no-border">
             <img 
