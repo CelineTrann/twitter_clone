@@ -39,6 +39,7 @@ def post(request):
 def profile(request, username):
     modal_form = TweetForm(prefix="modal")
     profile_info = Profile.objects.get(pk=request.user.id)
-    return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info})
+    items = Tweet.objects.all().order_by("-updated_at")
+    return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items})
     
         

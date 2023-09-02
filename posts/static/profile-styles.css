@@ -26,13 +26,13 @@
 }
 
 .profile-content {
-    height: 55vh;
+    height: 60vh;
     display: flex;
     flex-direction: column;
 }
 
 .profile-banner {
-    height: 130%;
+    height: 160%;
     background-image: url(https://www.schemecolor.com/wallpaper?i=4334&desktop);
 }
 
@@ -98,4 +98,32 @@
 
 .follow p:hover {
     text-decoration: underline;
+}
+
+/* Tweets */
+.profile-tweets {
+    width: 100%;
+}
+
+.profile-tweet-options {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid black;
+}
+
+.option-btn {
+    flex-grow: 1;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px 0;
+    margin-top: 10px;
+}
+
+.option-btn:hover {
+    background-color: var(--gray-hover);
+}
+
+.current-option {
+    font-weight: 700;
 }
