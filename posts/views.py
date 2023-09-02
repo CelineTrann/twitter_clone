@@ -16,19 +16,29 @@ def home(request):
 @login_required
 def post(request):
     if request.method == 'POST':
-        form = TweetForm(request.POST)
-        if form.is_valid():
-            tweet = form.save(commit=False)
-            tweet.user = request.user
-            tweet.save()
+        prev_link = request.META.get('HTTP_REFERER', '/')
         
-        return redirect(request.META.get('HTTP_REFERER', '/'))
+        direct_form = TweetForm(request.POST, prefix='direct')
+        if direct_form.is_valid():
+            direct_tweet = direct_form.save(commit=False)
+            direct_tweet.user = request.user
+            direct_tweet.save()
+            return redirect(home)
+
+        modal_form = TweetForm(request.POST, prefix='modal')
+        if modal_form.is_valid():
+            modal_tweet = modal_form.save(commit=False)
+            modal_tweet.user = request.user
+            modal_tweet.save()
+            return redirect(prev_link)
+        
+        return redirect(prev_link)
 
                 
 @login_required
 def profile(request, username):
-    form = TweetForm(prefix='modal')
+    modal_form = TweetForm(prefix="modal")
     profile_info = Profile.objects.get(pk=request.user.id)
-    return render(request, "profile.html", {"form": form, "Profile": profile_info})
+    return render(request, "profile.html", {"modal_form": modal_form, "Profile": profile_info})
     
         
