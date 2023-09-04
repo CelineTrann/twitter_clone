@@ -70,6 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'twitter_clone.wsgi.application'
 
+LOGIN_REDIRECT_URL = "/"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -99,7 +100,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
