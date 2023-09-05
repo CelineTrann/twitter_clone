@@ -5,7 +5,7 @@
     
 {% block content %}
 <div class="content">
-    <div class="login-content">
+    <div class="center-content">
         <h1>Login in to Twitter</h1>
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
@@ -21,8 +21,6 @@
             <a href="{% url 'registration' %}" class="sign-up">Sign up now</a>
         </div>
     </div>
-    
 </div>
-
 
 {% endblock content %}

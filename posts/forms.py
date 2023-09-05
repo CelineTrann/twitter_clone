@@ -20,6 +20,10 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['display_name', 'bio']
+        widgets = {
+            'display_name': forms.TextInput(attrs={'placeholder': 'Display Name'}),
+            'bio': forms.Textarea(attrs={'rows': 10, 'placeholder': 'Tell us about yourself'}),
+        }
 
 class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(widget=TextInput(attrs={'placeholder': 'Username'}))

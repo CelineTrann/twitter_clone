@@ -28,13 +28,18 @@ def profile_creation(request):
         return render(request, "registration/profile-creation.html", {"profile_form": profile_form})
     
     elif request.method == 'POST':
-        user_profile = Profile.objects.create(user=request.user)
+        Profile.objects.create(user=request.user)
         profile_form = UserProfileForm(request.POST, instance=request.user.profile)
         profile_form.save()
         return redirect(home)
 
 @login_required
 def home(request):
+    try:
+        request.user.profile
+    except:
+        return redirect(profile_creation)
+    
     items = Tweet.objects.all().order_by("-updated_at")
     modal_form = TweetForm(prefix="modal")
     direct_form = TweetForm(prefix="direct")

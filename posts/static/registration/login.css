@@ -1,18 +1,3 @@
-.content {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.login-content {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-}
-
 #id_username, #id_password {
     display: block;
     width: 100%;
