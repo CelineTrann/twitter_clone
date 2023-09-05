@@ -1,7 +1,7 @@
 from django import forms
-from .models import Tweet
+from .models import Tweet, User, Profile
 
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.forms.widgets import PasswordInput, TextInput
 
 class TweetForm(forms.ModelForm):
@@ -15,3 +15,14 @@ class TweetForm(forms.ModelForm):
 class CustomLoginForm(AuthenticationForm):
     username = forms.CharField(widget=TextInput(attrs={'placeholder': 'Username'}))
     password = forms.CharField(widget=PasswordInput(attrs={'placeholder':'Password'}))
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['display_name', 'bio']
+
+class CustomUserCreationForm(UserCreationForm):
+    username = forms.CharField(widget=TextInput(attrs={'placeholder': 'Username'}))
+    password1 = forms.CharField(widget=PasswordInput(attrs={'placeholder':'Password'}))
+    password2 = forms.CharField(widget=PasswordInput(attrs={'placeholder':'Confirm Password'}))
+

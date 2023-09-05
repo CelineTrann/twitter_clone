@@ -1,0 +1,18 @@
+{% extends 'registration/base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="/static/registration/registration.css" />
+{% endblock head %}
+    
+{% block content %}
+    <h1>Sign Up for Twitter</h1>
+    {% if user_form.errors %}
+    <div class="error">{{ user_form.errors }}</div>
+    {% endif %}
+    <form method="post" action="{% url 'registration' %}">
+        {% csrf_token %}
+        {{ user_form.username }}
+        {{ user_form.password1 }}
+        {{ user_form.password2 }}
+        <input type="submit" value="Sign Up" class="btn">
+    </form>
+{% endblock content %}

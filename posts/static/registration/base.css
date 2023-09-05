@@ -20,3 +20,20 @@ body {
     width: 100%;
     background-color: var(--background);
 }
+
+.btn {
+    border-radius: 400px;
+    border: none;
+    font-weight: bold;
+    text-align: center;
+
+    padding: 10px;
+    background-color: var(--twitter-blue);
+    color: #fff;
+    transition: background-color 0.25s;
+}
+
+.btn:hover {
+    background-color: var(--twitter-blue-hover);
+    cursor: pointer;
+}

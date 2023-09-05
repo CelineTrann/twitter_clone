@@ -26,24 +26,8 @@
     align-items: center;
 }
 
-.btn {
-    border-radius: 400px;
-    border: none;
-    font-weight: bold;
-}
-
 .login-btn {
     width: 30%;
-    padding: 10px;
-    text-align: center;
-    background-color: var(--twitter-blue);
-    color: #fff;
-    transition: background-color 0.25s;
-}
-
-.login-btn:hover {
-    background-color: var(--twitter-blue-hover);
-    cursor: pointer;
 }
 
 a {

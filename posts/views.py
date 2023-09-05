@@ -1,10 +1,26 @@
 from django.shortcuts import render, redirect
 from .models import Tweet, Profile
-from .forms import TweetForm
+from .forms import TweetForm, UserProfileForm, CustomUserCreationForm
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 
 from django.http import HttpResponse
+
+def registration(request):
+    if request.method == 'GET':
+        user_form = CustomUserCreationForm()
+        return render(request, "registration/registration.html", {"user_form": user_form})
+    
+    elif request.method == 'POST':
+        user_form = CustomUserCreationForm(request.POST)
+        if user_form.is_valid():
+            user = user_form.save()
+            login(request, user)
+            return redirect(home)
+        else:
+            return render(request, "registration/registration.html", {"user_form": user_form})
+
 
 @login_required
 def home(request):
