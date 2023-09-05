@@ -14,6 +14,10 @@
     margin: 0;
 }
 
+h1 {
+    margin-bottom: 10px;
+}
+
 body {
     font-family: "Segoe UI", Arial, Helvetica, sans-serif;
     height: 100vh;
