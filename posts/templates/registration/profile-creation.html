@@ -1,0 +1,14 @@
+{% extends 'registration/base.html' %}
+{% block head %}
+    {% comment %} <link rel="stylesheet" href="/static/registration/registration.css" /> {% endcomment %}
+{% endblock head %}
+    
+{% block content %}
+<h1>Let the World Know Who You Are!</h1>
+<form method="post" action="{% url 'profile_creation' %}">
+    {% csrf_token %}
+    {{ profile_form.display_name }}
+    {{ profile_form.bio }}
+    <input type="submit" value="Sign Up" class="btn">
+</form>
+{% endblock content %}

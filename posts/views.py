@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Tweet, Profile
+from .models import Tweet, Profile, User
 from .forms import TweetForm, UserProfileForm, CustomUserCreationForm
 
 from django.contrib.auth.decorators import login_required
@@ -17,10 +17,21 @@ def registration(request):
         if user_form.is_valid():
             user = user_form.save()
             login(request, user)
-            return redirect(home)
+            return redirect(profile_creation)
         else:
             return render(request, "registration/registration.html", {"user_form": user_form})
-
+        
+@login_required
+def profile_creation(request):
+    if request.method == 'GET':
+        profile_form = UserProfileForm(instance=request.user)
+        return render(request, "registration/profile-creation.html", {"profile_form": profile_form})
+    
+    elif request.method == 'POST':
+        user_profile = Profile.objects.create(user=request.user)
+        profile_form = UserProfileForm(request.POST, instance=request.user.profile)
+        profile_form.save()
+        return redirect(home)
 
 @login_required
 def home(request):
@@ -54,7 +65,7 @@ def post(request):
 @login_required
 def profile(request, username):
     modal_form = TweetForm(prefix="modal")
-    profile_info = Profile.objects.get(pk=request.user.id)
+    profile_info = Profile.objects.get(user=request.user)
     items = Tweet.objects.filter(user__username = username).order_by("-updated_at")
     return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items})
     
