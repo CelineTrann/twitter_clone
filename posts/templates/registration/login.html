@@ -1,11 +1,28 @@
-{% if form.errors %}
-<p>{{ form.errors }}</p>
-{% endif %}
+{% extends 'registration/base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="/static/registration/login.css" />
+{% endblock head %}
+    
+{% block content %}
+<div class="content">
+    <div class="login-content">
+        <h1>Login in to Twitter</h1>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.username }}
+            {{ form.password }}
+            <div class="login-btn-div">
+                <input type="submit" value="login" class="btn login-btn">
+                <a href="" class="forget-password">Forget password?</a>
+            </div>
+        </form>
+        <div class="registration">
+            <p>New to Twitter?</p>
+            <a href="" class="sign-up">Sign up now</a>
+        </div>
+    </div>
+    
+</div>
 
-<h2>Login in to Twitter</h2>
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    {{ form.username }}
-    {{ form.password }}
-    <input type="submit" value="login">
-</form>
+
+{% endblock content %}

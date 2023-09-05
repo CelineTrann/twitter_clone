@@ -1,0 +1,66 @@
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-content {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+#id_username, #id_password {
+    display: block;
+    width: 100%;
+    margin: 15px 0;
+    font-size: 1rem;
+}
+
+.login-btn-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn {
+    border-radius: 400px;
+    border: none;
+    font-weight: bold;
+}
+
+.login-btn {
+    width: 30%;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--twitter-blue);
+    color: #fff;
+    transition: background-color 0.25s;
+}
+
+.login-btn:hover {
+    background-color: var(--twitter-blue-hover);
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: var(--twitter-blue);
+    transition: color 0.25s;
+}
+
+a:hover, a:active {
+    color: var(--twitter-blue-hover);
+}
+
+.registration {
+    width: 100%;
+    text-align: left;
+    margin-top: 15px;
+
+    display: flex;
+    gap: 0.7rem;
+}
