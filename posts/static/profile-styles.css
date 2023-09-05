@@ -1,0 +1,129 @@
+.profile-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.profile-back {
+    display: inline-block;
+    transition: background-color 0.25s;
+    height: 2em;
+    width: 2em;
+    padding: 0.25em;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.profile-back:hover {
+    background-color: var(--gray-hover);
+}
+
+.username-header {
+    margin-left: 10px;
+}
+
+.profile-content {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-banner {
+    height: 160%;
+    background-image: url(https://www.schemecolor.com/wallpaper?i=4334&desktop);
+}
+
+.profile-pic-pos {
+    height: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding: 0px 10px;
+}
+
+.overlap-banner {
+    transform: translate(0, -50%);
+    border: 5px solid var(--background);
+    height: 8rem;
+    width: 8rem;
+}
+
+.edit-profile-container {
+    margin-top: 5px;
+}
+
+.edit-profile-btn {
+    border: 1px solid var(--gray-hover);
+    padding: 5px 10px;
+    transition: background-color 0.25s;
+}
+
+.edit-profile-btn:hover {
+    background-color: var(--gray-hover);
+    cursor: pointer;
+}
+
+.profile-info {
+    height: 100%;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.profile-display-name {
+    font-size: 1.2rem;    
+}
+
+.handle-profile {
+    font-size: 1rem;
+}
+
+.profile-bio {
+    padding: 15px 0;
+}
+
+.join-date {
+    color: var(--gray-text);
+}
+
+.follow {
+    display: flex;
+    gap: 1rem;
+    padding: 0 20px;
+}
+
+.follow p:hover {
+    text-decoration: underline;
+}
+
+/* Tweets */
+.profile-tweets {
+    width: 100%;
+}
+
+.profile-tweet-options {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid black;
+}
+
+.option-btn {
+    flex-grow: 1;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px 0;
+    margin-top: 10px;
+}
+
+.option-btn:hover {
+    background-color: var(--gray-hover);
+}
+
+.current-option {
+    font-weight: 700;
+}

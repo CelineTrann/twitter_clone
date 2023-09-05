@@ -1,0 +1,65 @@
+:root {
+    --background: #fff;
+    --twitter-blue: hsl(204, 87.6%, 52.7%);
+    --twitter-blue-hover: hsl(204, 87.6%, 45%);
+    --twitter-blue-disabled: hsla(204, 88%, 53%, 50%);
+    --gray-hover: hsl(0, 0%, 80%);
+    --gray-text: gray;
+    --heart-red: red;
+    --retweet-green: green;
+}
+
+*, ::before, ::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+body {
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    height: 100vh;
+    width: 100%;
+    background-color: var(--background);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn {
+    border-radius: 400px;
+    border: none;
+    font-weight: bold;
+    text-align: center;
+
+    padding: 10px;
+    background-color: var(--twitter-blue);
+    color: #fff;
+    transition: background-color 0.25s;
+}
+
+.btn:hover {
+    background-color: var(--twitter-blue-hover);
+    cursor: pointer;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    min-width: 300px;
+}

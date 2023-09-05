@@ -1,0 +1,26 @@
+{% extends 'registration/base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="/static/registration/login.css" />
+{% endblock head %}
+    
+{% block content %}
+<div class="content">
+    <div class="center-content">
+        <h1>Login in to Twitter</h1>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.username }}
+            {{ form.password }}
+            <div class="login-btn-div">
+                <input type="submit" value="login" class="btn login-btn">
+                <a href="" class="forget-password">Forget password?</a>
+            </div>
+        </form>
+        <div class="registration">
+            <p>New to Twitter?</p>
+            <a href="{% url 'registration' %}" class="sign-up">Sign up now</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

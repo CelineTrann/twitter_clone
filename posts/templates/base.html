@@ -19,7 +19,7 @@
     <div class="post-modal">
         <div class="post-modal-content">
             <p class="close" id="post-modal-close">&times;</p>
-            <form action="post/" method="post" class="post-tweet-form">
+            <form action="{% url 'post' %}" method="post" class="post-tweet-form">
                 {% csrf_token %}
                 <div class="post-top">
                     <img 
@@ -43,13 +43,13 @@
     <nav>
         <h1>Twitter</h1>
         <div class="nav-btn-list">
-            <a href="/" class="nav-link" id="home-button">
+            <a href="{% url 'home' %}" class="nav-link" id="home-button">
                 <div class="nav-button btn">
                     <i class="fa fa-home" aria-hidden="true"></i>
                     <p>Home</p>        
                 </div>
             </a>
-            <a href="#" class="nav-link" id="profile-button">
+            <a href="{% url 'profile' user.username %}" class="nav-link" id="profile-button">
                 <div class="nav-button btn">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <p>Profile</p>        
@@ -65,8 +65,8 @@
                     class="profile-pic"
                 ></img> 
                 <div class="name-container">
-                    <p class="name">Name</p>
-                    <p class="handle">handle</p>
+                    <p class="name">{{ request.user.profile.display_name }}</p>
+                    <p class="handle">{{ request.user }}</p>
                 </div>
             </div>
         </a>

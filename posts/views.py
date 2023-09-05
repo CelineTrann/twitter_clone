@@ -1,20 +1,80 @@
 from django.shortcuts import render, redirect
-from .models import Tweet, User
-from .forms import TweetForm
+from .models import Tweet, Profile, User
+from .forms import TweetForm, UserProfileForm, CustomUserCreationForm
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 
 from django.http import HttpResponse
 
-# Create your views here.
+def registration(request):
+    if request.method == 'GET':
+        user_form = CustomUserCreationForm()
+        return render(request, "registration/registration.html", {"user_form": user_form})
+    
+    elif request.method == 'POST':
+        user_form = CustomUserCreationForm(request.POST)
+        if user_form.is_valid():
+            user = user_form.save()
+            login(request, user)
+            return redirect(profile_creation)
+        else:
+            return render(request, "registration/registration.html", {"user_form": user_form})
+        
+@login_required
+def profile_creation(request):
+    if request.method == 'GET':
+        profile_form = UserProfileForm(instance=request.user)
+        return render(request, "registration/profile-creation.html", {"profile_form": profile_form})
+    
+    elif request.method == 'POST':
+        Profile.objects.create(user=request.user)
+        profile_form = UserProfileForm(request.POST, instance=request.user.profile)
+        profile_form.save()
+        return redirect(home)
+
+@login_required
 def home(request):
+    try:
+        request.user.profile
+    except:
+        return redirect(profile_creation)
+    
     items = Tweet.objects.all().order_by("-updated_at")
     modal_form = TweetForm(prefix="modal")
     direct_form = TweetForm(prefix="direct")
     return render(request, "home.html", {"Tweets": items, "modal_form": modal_form, "direct_form": direct_form})
 
+@login_required
 def post(request):
     if request.method == 'POST':
-        form = TweetForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("home")
+        prev_link = request.META.get('HTTP_REFERER', '/')
+        
+        direct_form = TweetForm(request.POST, prefix='direct')
+        if direct_form.is_valid():
+            direct_tweet = direct_form.save(commit=False)
+            direct_tweet.user = request.user
+            direct_tweet.save()
+            return redirect(home)
+
+        modal_form = TweetForm(request.POST, prefix='modal')
+        if modal_form.is_valid():
+            modal_tweet = modal_form.save(commit=False)
+            modal_tweet.user = request.user
+            modal_tweet.save()
+            return redirect(prev_link)
+        
+        return redirect(prev_link)
+
+                
+@login_required
+def profile(request, request_username):
+    modal_form = TweetForm(prefix="modal")
+    profile_info = Profile.objects.get(user__username = request_username)
+    items = Tweet.objects.filter(user__username = request_username).order_by("-updated_at")
+    return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items})
+    
+@login_required
+def following(request, username):
+    pass
         

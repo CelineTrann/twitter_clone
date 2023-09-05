@@ -10,7 +10,7 @@
     <h1>Home</h1>
 </div>
 <div class="direct-post timeline-segment">
-    <form action="post/" method="post" class="post-tweet-form">
+    <form action="{% url 'post' %}" method="post" class="post-tweet-form">
         {% csrf_token %}
         <div class="post-top-no-border">
             <img 
@@ -39,7 +39,7 @@
     ></img> 
     <div class="content">
         <div class="header">
-            <span><b>{{ tweet.user.first_name }}</b></span>
+            <span><b>{{ tweet.user.profile.display_name }}</b></span>
             <span class="post-username">@{{ tweet.user }}</span>
             <span class="post-date">• {{ tweet.created_at |date:"M d" }}</span>
         </div>

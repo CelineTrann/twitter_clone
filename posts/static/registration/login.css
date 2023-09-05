@@ -1,0 +1,34 @@
+#id_username, #id_password {
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.login-btn-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-btn {
+    width: 30%;
+}
+
+a {
+    text-decoration: none;
+    color: var(--twitter-blue);
+    transition: color 0.25s;
+}
+
+a:hover, a:active {
+    color: var(--twitter-blue-hover);
+}
+
+.registration {
+    width: 100%;
+    text-align: left;
+    margin-top: 15px;
+
+    display: flex;
+    gap: 0.7rem;
+}
