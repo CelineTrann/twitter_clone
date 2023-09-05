@@ -56,7 +56,7 @@
     ></img> 
     <div class="content">
         <div class="header">
-            <span><b>{{ tweet.user.first_name }}</b></span>
+            <span><b>{{ tweet.user.profile.display_name }}</b></span>
             <span class="post-username">@{{ tweet.user }}</span>
             <span class="post-date">• {{ tweet.created_at |date:"M d" }}</span>
         </div>

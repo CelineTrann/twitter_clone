@@ -65,8 +65,8 @@
                     class="profile-pic"
                 ></img> 
                 <div class="name-container">
-                    <p class="name">Name</p>
-                    <p class="handle">handle</p>
+                    <p class="name">{{ request.user.profile.display_name }}</p>
+                    <p class="handle">{{ request.user }}</p>
                 </div>
             </div>
         </a>
