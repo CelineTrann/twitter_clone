@@ -138,7 +138,7 @@ nav {
     width: 100%;
     border-radius: 5px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 10px 20px 0px;
-    padding: 10px 15px;
+    padding: 10px 0;
     margin-bottom: 15px;
     font-size: 1rem;
 }
@@ -164,7 +164,7 @@ nav {
 }  
 
 .popup-option {
-    padding: 5px;
+    padding: 5px 15px;
 }
 
 .popup-option:hover {
