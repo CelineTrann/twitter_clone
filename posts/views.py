@@ -75,6 +75,10 @@ def profile(request, request_username):
     return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items})
     
 @login_required
-def following(request, username):
-    pass
+def follow(request, request_username):
+    profile = Profile.objects.get(user__username = request_username)    
+    if request.path == f"/profile/{request_username}/following":
+        return render(request, "follow.html", {"profile": profile, "type": "following"})
+    else: 
+        return render(request, "follow.html", {"profile": profile, "type": "followers"})
         
