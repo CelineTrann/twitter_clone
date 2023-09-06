@@ -35,4 +35,16 @@ $(document).ready(function () {
         this.style.height = 'auto'; 
         this.style.height = (this.scrollHeight) + 'px'; 
     });
+
+    // Toggle popup
+    $("#profile-preview").click(function (e) {
+        e.stopPropagation();
+        $("#profile-popup").toggleClass("active");
+    });
+
+    $("body").click(function () {
+        if ($("#profile-popup").hasClass("active")) {
+            $("#profile-popup").removeClass("active");
+        }
+    });
 })

@@ -93,8 +93,9 @@ nav {
     cursor: pointer;
 }
 
-.profile-preview-link {
+.profile-preview-content {
     margin-top: auto;
+    position: relative;
 }
 
 .profile-preview {
@@ -125,6 +126,49 @@ nav {
 
 .handle::before {
     content: "@";
+}
+
+/* Popup */
+.popup {
+    display: none;
+    position: absolute;
+    top: -70px;
+    z-index: 2;
+
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 10px 20px 0px;
+    padding: 10px 0;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.popup::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 0px 10px;
+    border-color: var(--background) transparent transparent transparent;
+    bottom: -9px;
+    left: 50%;
+    margin-left: -10px;
+    z-index: 3;
+}  
+
+.popup-option {
+    padding: 5px 15px;
+}
+
+.popup-option:hover {
+    background-color: var(--gray-hover);
 }
 
 /* Timeline */
@@ -224,3 +268,4 @@ nav {
 .post-btn-submit:disabled {
     background-color: var(--twitter-blue-disabled);
 }
+

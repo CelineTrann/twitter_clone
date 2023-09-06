@@ -10,7 +10,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="/static/base.js"></script>
-    
+
     {% block head %}{% endblock head %}
 
     <title>{% block title %}Twitter{% endblock title %}</title>
@@ -57,8 +57,11 @@
             </a>
         </div>
         <div class="post-btn btn" id="nav-post-btn">Post</div>
-        <a href="#" class="profile-preview-link">
-            <div class="profile-preview btn">
+        <div class="profile-preview-content">
+            <div class="popup" id="profile-popup">
+                <a href="{% url 'logout' %}" class="popup-option">Log out @{{ request.user }}</a>
+            </div>
+            <div class="profile-preview btn" id="profile-preview">
                 <img 
                     src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
                     alt="profile picture" 
@@ -69,7 +72,7 @@
                     <p class="handle">{{ request.user }}</p>
                 </div>
             </div>
-        </a>
+        </div>
     </nav>
     <section class="timeline">
         {% block content %}{% endblock content %}
