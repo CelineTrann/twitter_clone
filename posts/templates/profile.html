@@ -10,7 +10,10 @@
     <a href="{% url 'home' %}" class="profile-back">
         <i class="fa fa-arrow-left" aria-hidden="true"></i>
     </a>
-    <span class="username-header"><b>{{ profile.user.username }}</b></span>
+    <div class="username-header">
+        <div><b>{{ profile.display_name }}</b></div>
+        <div class="handle">{{ profile.user.username }}</div>
+    </div>
 </div>
 <div class="profile-content">
     <div class="profile-banner"></div>
@@ -36,15 +39,22 @@
         </p>
     </div>
     <div class="follow">
-        <p><b>38</b> Following</p>
-        <p><b>9</b> Followers</p>
+        <p><b>38</b> <a href="{% url 'following' profile.user.username %}">Following</a></p>
+        <p><b>9</b> <a href="{% url 'followers' profile.user.username %}">Followers</a></p>
     </div>
 </div>
-<div class="profile-tweets">
-    <div class="profile-tweet-options">
-        <div class="option-btn current-option">Posts</div>
-        <div class="option-btn">Likes</div>
-    </div>
+
+<div class="profile-options">
+    <a href="" class="option-btn">
+        <div class="option current-option ">
+            Posts
+        </div>
+    </a>
+    <a href="" class="option-btn">
+        <div class="option">
+            Likes
+        </div>
+    </a>
 </div>
 
 {% for tweet in Tweets %}

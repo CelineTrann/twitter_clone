@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="/static/profile-styles.css" />
+{% endblock head %}
+
+{% block content %}
+<div class="timeline-header profile-header">
+    <a href="{% url 'profile' profile.user.username %}" class="profile-back">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    </a>
+    <div class="username-header">
+        <div><b>{{ profile.display_name }}</b></div>
+        <div class="handle">{{ profile.user.username }}</div>
+    </div>
+</div>
+
+<div class="profile-options">
+    <a href="{% url 'followers' profile.user.username %}" class="option-btn">
+        <div class="option {% if type == "followers" %} current-option {% endif %}">
+            Followers
+        </div>
+    </a>
+    <a href="{% url 'following' profile.user.username %}" class="option-btn">
+        <div class="option {% if type == "following" %} current-option {% endif %}">
+            Following
+        </div>
+    </a>
+</div>
+
+
+<div class="follow-content">
+{% if type == "following" %}
+    {% for following in profile.follows.all %}
+        <p>{{ following }}</p>
+    {% endfor %}
+{% else %}
+    {% for followers in profile.followed_by.all %}
+        <p>{{ followers }}</p>
+    {% endfor %}
+{% endif %}
+</div>
+
+{% endblock content %}
+
