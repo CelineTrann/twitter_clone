@@ -1,0 +1,32 @@
+.user-detail-container {
+    display: flex;
+    padding: 15px;
+    transition: background-color 0.25s;
+}
+
+.user-detail-container:hover {
+    background-color: var(--gray-hover);
+    cursor: pointer;
+}
+
+.user-detail-text {
+    flex-grow: 1;
+}
+
+/* Follow Buttons */
+.follow-btn-container {
+    margin-top: 5px;
+}
+
+.following-btn {
+    border: 1px solid black;
+    padding: 5px 10px;
+    font-weight: 700;
+    transition: 0.25s;
+}
+
+.following-btn:hover {
+    color: red;
+    border: 1px solid red;
+    cursor: pointer;
+}

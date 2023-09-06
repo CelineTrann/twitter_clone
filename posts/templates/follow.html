@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block head %}
     <link rel="stylesheet" href="/static/profile-styles.css" />
+    <link rel="stylesheet" href="/static/follow-styles.css" />
+
+    <script src="/static/follow.js"></script>
 {% endblock head %}
 
 {% block content %}
@@ -31,11 +34,31 @@
 <div class="follow-content">
 {% if type == "following" %}
     {% for following in profile.follows.all %}
-        <p>{{ following }}</p>
+    <div class="user-detail-container timeline-segment">
+        <img class="profile-pic"></img>
+        <div class="user-detail-text">
+            <p><b>{{ following.display_name }}</b></p>
+            <p class="handle">{{ following.user.username }}</p>
+            <p>{{ following.bio }}</p>
+        </div>
+        <div class="follow-btn-container">
+            <div class="following-btn btn">Following</div>
+        </div>
+    </div>
     {% endfor %}
 {% else %}
     {% for followers in profile.followed_by.all %}
-        <p>{{ followers }}</p>
+        <div class="user-detail-container timeline-segment">
+            <img class="profile-pic"></img>
+            <div class="user-detail-text">
+                <p><b>{{ followers.display_name }}</b></p>
+                <p class="handle">{{ followers.user.username }}</p>
+                <p>{{ followers.bio }}</p>
+            </div>
+            <div class="follow-btn-container">
+                <div class="following-btn btn">Following</div>
+            </div>
+        </div>
     {% endfor %}
 {% endif %}
 </div>
