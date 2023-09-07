@@ -35,9 +35,7 @@ def profile_creation(request):
 
 @login_required
 def home(request):
-    try:
-        request.user.profile
-    except:
+    if not hasattr(request.user, 'profile'):
         return redirect(profile_creation)
     
     items = Tweet.objects.all().order_by("-updated_at")
@@ -69,6 +67,9 @@ def post(request):
                 
 @login_required
 def profile(request, request_username):
+    if not hasattr(request.user, 'profile'):
+        return redirect(profile_creation)
+    
     modal_form = TweetForm(prefix="modal")
     profile_info = Profile.objects.get(user__username = request_username)
     items = Tweet.objects.filter(user__username = request_username).order_by("-updated_at")
