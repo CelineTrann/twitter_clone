@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block head %}
     <link rel="stylesheet" href="/static/components/profile-header-styles.css" />
+    <link rel="stylesheet" href="/static/components/options-container.css" />
     <link rel="stylesheet" href="/static/follow-styles.css" />
 
     <script src="/static/follow.js"></script>
@@ -15,7 +16,7 @@
 
 {% include 'components/profile-header.html' %}
 
-<div class="profile-options">
+<div class="options-container">
     <a href="{% url 'followers' profile.user.username %}" class="option-btn">
         <div class="option {% if type == "followers" %} current-option {% endif %}">
             Followers

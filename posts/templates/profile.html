@@ -3,6 +3,7 @@
 {% block head %}
     <link rel="stylesheet" href="/static/profile-styles.css" />
     <link rel="stylesheet" href="/static/components/profile-header-styles.css" />
+    <link rel="stylesheet" href="/static/components/options-container.css" />
 
     <link rel="stylesheet" href="/static/home-styles.css" /> {% comment %} for tweet styling {% endcomment %}
 
@@ -48,7 +49,7 @@
     </div>
 </div>
 
-<div class="profile-options">
+<div class="options-container">
     <a href="{% url 'profile' profile.user.username %}" class="option-btn">
         <div class="option current-option ">
             Posts
