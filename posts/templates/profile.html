@@ -39,8 +39,8 @@
         </p>
     </div>
     <div class="follow">
-        <p><b>38</b> <a href="{% url 'following' profile.user.username %}">Following</a></p>
-        <p><b>9</b> <a href="{% url 'followers' profile.user.username %}">Followers</a></p>
+        <p><b>{{ profile.follows.count }}</b> <a href="{% url 'following' profile.user.username %}">Following</a></p>
+        <p><b>{{ profile.followed_by.count }}</b> <a href="{% url 'followers' profile.user.username %}">Followers</a></p>
     </div>
 </div>
 
