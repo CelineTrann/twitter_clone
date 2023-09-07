@@ -19,14 +19,23 @@
 }
 
 .following-btn {
-    border: 1px solid black;
+    border: 1px solid var(--inverse-color);
     padding: 5px 10px;
     font-weight: 700;
     transition: 0.25s;
 }
 
 .following-btn:hover {
-    color: red;
-    border: 1px solid red;
+    color: var(--heart-red);
+    border: 1px solid var(--heart-red);
     cursor: pointer;
+}
+
+.not-following-btn {
+    border: 1px solid var(--inverse-color);
+    background-color: var(--inverse-color);
+    color: var(--background);
+    padding: 5px 10px;
+    font-weight: 700;
+    transition: 0.25s;
 }
