@@ -12,7 +12,7 @@
         
         {% if follow != request.user.profile %}
         <div class="follow-btn-container">
-            {% if follow in profile.follows.all %}
+            {% if follow in request.user.profile.follows.all %}
                 <button class="following-btn btn" name="follow" value="{{ follow.id }}">Following</button>
             {% else %}
                 <button class="not-following-btn btn" name="follow" value="{{ follow.id }}">Follow</div>
