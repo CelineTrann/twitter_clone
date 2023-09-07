@@ -1,0 +1,28 @@
+/* Options Buttons */
+.options-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--inverse-color);
+}
+
+.option-btn {
+    flex-grow: 1;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.option-btn:hover {
+    background-color: var(--gray-hover);
+}
+
+.option {
+    display: inline-block;
+    height: 100%;
+    padding: 12px 10px;
+}
+
+.current-option {
+    font-weight: 700;
+    border-bottom: 5px solid var(--twitter-blue);
+}
