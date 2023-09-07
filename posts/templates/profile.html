@@ -56,37 +56,7 @@
         </div>
     </a>
 </div>
+{% include 'components/tweet.html' with Tweets=Tweets %}
 
-{% for tweet in Tweets %}
-<div class="tweet timeline-segment">
-    <img 
-        src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
-        alt="profile picture" 
-        class="profile-pic"
-    ></img> 
-    <div class="content">
-        <div class="header">
-            <span><b>{{ tweet.user.profile.display_name }}</b></span>
-            <span class="post-username">@{{ tweet.user }}</span>
-            <span class="post-date">• {{ tweet.created_at |date:"M d" }}</span>
-        </div>
-        <p>{{ tweet.content }}</p>
-        <div class="post-icons">
-            <span class="icon comment-icon">
-                <i class="fa fa-comment-o" aria-hidden="true"></i> 1
-            </span>
-            <span class="icon retweet-icon">
-                <i class="fa fa-retweet" aria-hidden="true"></i> 1
-            </span>
-            <span class="icon heart-icon">
-                <i class="fa fa-heart-o" aria-hidden="true"></i> 1
-            </span>
-            <span class="icon bar-icon">
-                <i class="fa fa-bar-chart" aria-hidden="true"></i> 1
-            </span>
-        </div>
-    </div>
-</div>
-{% endfor %}
 {% endblock content %}
 
