@@ -77,6 +77,16 @@ def profile(request, request_username):
     
 @login_required
 def follow(request, request_username):
+    curr_profile = Profile.objects.get(user__username = request_username)
+    if request.path == f"/profile/{request_username}/following":
+        following_list = curr_profile.follows.exclude(follows = curr_profile)
+        return render(request, "follow.html", {"profile": curr_profile, "follow_list": following_list, "type": "following"})
+    else: 
+        follower_list = curr_profile.followed_by.exclude(followed_by = curr_profile)
+        return render(request, "follow.html", {"profile": curr_profile, "follow_list": follower_list, "type": "followers"})
+        
+
+def follow_unfollow(request):
     if request.method == 'POST':
         current_user_profile = Profile.objects.get(user__username = request.user.username)
         follow_profile_id = request.POST.get("follow")
@@ -89,11 +99,4 @@ def follow(request, request_username):
 
         current_user_profile.save()
 
-    curr_profile = Profile.objects.get(user__username = request_username)
-    if request.path == f"/profile/{request_username}/following":
-        following_list = curr_profile.follows.exclude(follows = curr_profile)
-        return render(request, "follow.html", {"profile": curr_profile, "follow_list": following_list, "type": "following"})
-    else: 
-        follower_list = curr_profile.followed_by.exclude(followed_by = curr_profile)
-        return render(request, "follow.html", {"profile": curr_profile, "follow_list": follower_list, "type": "followers"})
-        
+    return redirect(request.META.get('HTTP_REFERER', '/'))

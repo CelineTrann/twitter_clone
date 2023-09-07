@@ -1,5 +1,3 @@
-<form method="post">
-{% csrf_token %}
 {% for follow in follow_list %}
     <a href="{% url 'profile' follow.user.username %}" class="user-detail-container timeline-segment">
         <img class="profile-pic"></img>
@@ -11,14 +9,7 @@
         </div>
         
         {% if follow != request.user.profile %}
-        <div class="follow-btn-container">
-            {% if follow in request.user.profile.follows.all %}
-                <button class="following-btn btn" name="follow" value="{{ follow.id }}">Following</button>
-            {% else %}
-                <button class="not-following-btn btn" name="follow" value="{{ follow.id }}">Follow</div>
-            {% endif %}
-        </div>
+            {% include 'components/follow-btn.html' with follow=follow %}
         {% endif %}
     </a>
 {% endfor %}
-</form>

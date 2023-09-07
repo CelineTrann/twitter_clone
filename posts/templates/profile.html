@@ -3,6 +3,10 @@
 {% block head %}
     <link rel="stylesheet" href="/static/profile-styles.css" />
     <link rel="stylesheet" href="/static/home-styles.css" /> {% comment %} for tweet styling {% endcomment %}
+
+    {% comment %} for follow button {% endcomment %}
+    <link rel="stylesheet" href="/static/follow-styles.css" /> 
+    <script src="/static/follow.js"></script>
 {% endblock head %}
 
 {% block content %}
@@ -16,7 +20,11 @@
             class="profile-pic overlap-banner"
         ></img> 
         <div class="edit-profile-container">
-            <div class="edit-profile-btn btn"><b>Edit Profile</b></div>
+            {% if profile == request.user.profile %}
+                <div class="edit-profile-btn btn"><b>Edit Profile</b></div>
+            {% else %}
+                {% include 'components/follow-btn.html' with follow=profile %}
+            {% endif %}
         </div>
     </div>
     <div class="profile-info">
