@@ -2,7 +2,6 @@
 {% csrf_token %}
 {% for follow in follow_list %}
     <a href="{% url 'profile' follow.user.username %}" class="user-detail-container timeline-segment">
-
         <img class="profile-pic"></img>
 
         <div class="user-detail-text">
@@ -18,7 +17,6 @@
                 <button class="not-following-btn btn" name="follow" value="{{ follow }}">Follow</div>
             {% endif %}
         </div>
-
     </a>
 {% endfor %}
 </form>
