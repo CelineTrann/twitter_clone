@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block head %}
     <link rel="stylesheet" href="/static/home-styles.css" />
+    <link rel="stylesheet" href="/static/components/create-tweet-form-styles.css">
+
+    <script src="/static/components/create-tweet-form.js"></script>
 {% endblock head %}
 
 {% block title %}Home{% endblock title %}
@@ -10,25 +13,7 @@
     <h1>Home</h1>
 </div>
 <div class="direct-post timeline-segment">
-    <form action="{% url 'post' %}" method="post" class="post-tweet-form">
-        {% csrf_token %}
-        <div class="post-top-no-border">
-            <img 
-                src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
-                alt="profile picture" 
-                class="profile-pic"
-            ></img> 
-            {{ direct_form.content }}
-        </div>
-        <div class="post-bottom">
-            <p id="direct-char-count"> 0 / 255 characters</p>
-            <input 
-                type="submit" 
-                value="Post" 
-                class="btn post-btn post-btn-submit"
-            />
-        </div>
-    </form>
+    {% include "components/create-tweet-form.html" with content=direct_form.content type="direct" %}
 </div>
 {% include 'components/tweet.html' with Tweets=Tweets %}
 
