@@ -12,9 +12,9 @@
         
         <div class="follow-btn-container">
             {% if follow in profile.follows.all %}
-                <button class="following-btn btn" name="unfollow" value="{{ follow }}">Following</button>
+                <button class="following-btn btn" name="follow" value="{{ follow.id }}">Following</button>
             {% else %}
-                <button class="not-following-btn btn" name="follow" value="{{ follow }}">Follow</div>
+                <button class="not-following-btn btn" name="follow" value="{{ follow.id }}">Follow</div>
             {% endif %}
         </div>
     </a>
