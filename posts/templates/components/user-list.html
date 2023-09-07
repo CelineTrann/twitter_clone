@@ -10,6 +10,7 @@
             <p>{{ follow.bio }}</p>
         </div>
         
+        {% if follow != request.user.profile %}
         <div class="follow-btn-container">
             {% if follow in profile.follows.all %}
                 <button class="following-btn btn" name="follow" value="{{ follow.id }}">Following</button>
@@ -17,6 +18,7 @@
                 <button class="not-following-btn btn" name="follow" value="{{ follow.id }}">Follow</div>
             {% endif %}
         </div>
+        {% endif %}
     </a>
 {% endfor %}
 </form>
