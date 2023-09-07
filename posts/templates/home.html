@@ -39,7 +39,7 @@
     ></img> 
     <div class="content">
         <div class="header">
-            <span><b>{{ tweet.user.profile.display_name }}</b></span>
+            <a href="{% url 'profile' user.username %}"><b>{{ tweet.user.profile.display_name }}</b></a>
             <span class="post-username">@{{ tweet.user }}</span>
             <span class="post-date">• {{ tweet.created_at |date:"M d" }}</span>
         </div>

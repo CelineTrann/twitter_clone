@@ -4,6 +4,7 @@ from .forms import TweetForm, UserProfileForm, CustomUserCreationForm
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
+from django.db.models import Q
 
 from django.http import HttpResponse
 
@@ -35,12 +36,10 @@ def profile_creation(request):
 
 @login_required
 def home(request):
-    try:
-        request.user.profile
-    except:
+    if not hasattr(request.user, 'profile'):
         return redirect(profile_creation)
     
-    items = Tweet.objects.all().order_by("-updated_at")
+    items = Tweet.objects.filter(Q(user__profile__followed_by=request.user.profile) | Q(user=request.user)).order_by("-updated_at")
     modal_form = TweetForm(prefix="modal")
     direct_form = TweetForm(prefix="direct")
     return render(request, "home.html", {"Tweets": items, "modal_form": modal_form, "direct_form": direct_form})
@@ -69,12 +68,36 @@ def post(request):
                 
 @login_required
 def profile(request, request_username):
+    if not hasattr(request.user, 'profile'):
+        return redirect(profile_creation)
+    
     modal_form = TweetForm(prefix="modal")
     profile_info = Profile.objects.get(user__username = request_username)
     items = Tweet.objects.filter(user__username = request_username).order_by("-updated_at")
     return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items})
     
 @login_required
-def following(request, username):
-    pass
+def follow(request, request_username):
+    curr_profile = Profile.objects.get(user__username = request_username)
+    if request.path == f"/profile/{request_username}/following":
+        following_list = curr_profile.follows.exclude(follows = curr_profile)
+        return render(request, "follow.html", {"profile": curr_profile, "follow_list": following_list, "type": "following"})
+    else: 
+        follower_list = curr_profile.followed_by.exclude(followed_by = curr_profile)
+        return render(request, "follow.html", {"profile": curr_profile, "follow_list": follower_list, "type": "followers"})
         
+
+def follow_unfollow(request):
+    if request.method == 'POST':
+        current_user_profile = Profile.objects.get(user__username = request.user.username)
+        follow_profile_id = request.POST.get("follow")
+        follow_profile = Profile.objects.get(pk=follow_profile_id)
+        
+        if follow_profile not in current_user_profile.follows.all():
+            current_user_profile.follows.add(follow_profile_id)
+        else:
+            current_user_profile.follows.remove(follow_profile_id)
+
+        current_user_profile.save()
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))

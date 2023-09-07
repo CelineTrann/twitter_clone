@@ -1,0 +1,10 @@
+<div class="follow-btn-container">
+    <form action="{% url 'follow_unfollow' %}" method="post">
+    {% csrf_token %}
+    {% if follow in request.user.profile.follows.all %}
+        <button class="following-btn btn" name="follow" value="{{ follow.id }}">Following</button>
+    {% else %}
+        <button class="not-following-btn btn" name="follow" value="{{ follow.id }}">Follow</button>
+    {% endif %}
+    </form>
+</div>

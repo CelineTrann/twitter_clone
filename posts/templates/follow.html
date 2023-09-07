@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="/static/profile-styles.css" />
+    <link rel="stylesheet" href="/static/follow-styles.css" />
+
+    <script src="/static/follow.js"></script>
+{% endblock head %}
+
+{% block content %}
+
+{% include 'components/profile-header.html' %}
+
+<div class="profile-options">
+    <a href="{% url 'followers' profile.user.username %}" class="option-btn">
+        <div class="option {% if type == "followers" %} current-option {% endif %}">
+            Followers
+        </div>
+    </a>
+    <a href="{% url 'following' profile.user.username %}" class="option-btn">
+        <div class="option {% if type == "following" %} current-option {% endif %}">
+            Following
+        </div>
+    </a>
+</div>
+
+{% include "components/user-list.html" with follow_list=follow_list %}
+
+{% endblock content %}
+

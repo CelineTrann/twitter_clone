@@ -7,6 +7,7 @@
     --gray-text: gray;
     --heart-red: red;
     --retweet-green: green;
+    --inverse-color: black;
 }
 
 *, ::before, ::after {
@@ -25,6 +26,11 @@ body {
 a {
     text-decoration: none;
     color: inherit;
+    transition: text-decoration 0.25s;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 nav {    
@@ -54,7 +60,7 @@ nav {
 
 .nav-link {
     text-decoration: none;
-    color: black;
+    color: var(--inverse-color);
 }
 
 .nav-button {
@@ -182,12 +188,12 @@ nav {
 
 .timeline-header {
     padding: 20px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--inverse-color);
 }
 
 .timeline-segment {
     padding: 10px 15px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--inverse-color);
 }
 
 /* Modal */
@@ -220,7 +226,7 @@ nav {
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: var(--inverse-color);
     text-decoration: none;
     cursor: pointer;
 }
@@ -234,7 +240,7 @@ nav {
 
 .post-top {
     display: flex;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--inverse-color);
 }
 
 .tweet-content {
@@ -268,4 +274,3 @@ nav {
 .post-btn-submit:disabled {
     background-color: var(--twitter-blue-disabled);
 }
-

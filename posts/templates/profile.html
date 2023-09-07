@@ -3,15 +3,14 @@
 {% block head %}
     <link rel="stylesheet" href="/static/profile-styles.css" />
     <link rel="stylesheet" href="/static/home-styles.css" /> {% comment %} for tweet styling {% endcomment %}
+
+    {% comment %} for follow button {% endcomment %}
+    <link rel="stylesheet" href="/static/follow-styles.css" /> 
+    <script src="/static/follow.js"></script>
 {% endblock head %}
 
 {% block content %}
-<div class="timeline-header profile-header">
-    <a href="{% url 'home' %}" class="profile-back">
-        <i class="fa fa-arrow-left" aria-hidden="true"></i>
-    </a>
-    <span class="username-header"><b>{{ profile.user.username }}</b></span>
-</div>
+{% include 'components/profile-header.html' %}
 <div class="profile-content">
     <div class="profile-banner"></div>
     <div class="profile-pic-pos">
@@ -21,7 +20,11 @@
             class="profile-pic overlap-banner"
         ></img> 
         <div class="edit-profile-container">
-            <div class="edit-profile-btn btn"><b>Edit Profile</b></div>
+            {% if profile == request.user.profile %}
+                <div class="edit-profile-btn btn"><b>Edit Profile</b></div>
+            {% else %}
+                {% include 'components/follow-btn.html' with follow=profile %}
+            {% endif %}
         </div>
     </div>
     <div class="profile-info">
@@ -36,15 +39,22 @@
         </p>
     </div>
     <div class="follow">
-        <p><b>38</b> Following</p>
-        <p><b>9</b> Followers</p>
+        <p><b>{{ profile.follows.count }}</b> <a href="{% url 'following' profile.user.username %}">Following</a></p>
+        <p><b>{{ profile.followed_by.count }}</b> <a href="{% url 'followers' profile.user.username %}">Followers</a></p>
     </div>
 </div>
-<div class="profile-tweets">
-    <div class="profile-tweet-options">
-        <div class="option-btn current-option">Posts</div>
-        <div class="option-btn">Likes</div>
-    </div>
+
+<div class="profile-options">
+    <a href="" class="option-btn">
+        <div class="option current-option ">
+            Posts
+        </div>
+    </a>
+    <a href="" class="option-btn">
+        <div class="option">
+            Likes
+        </div>
+    </a>
 </div>
 
 {% for tweet in Tweets %}
