@@ -7,15 +7,8 @@
 {% endblock head %}
 
 {% block content %}
-<div class="timeline-header profile-header">
-    <a class="profile-back" onClick="javascript:history.go(-1);">
-        <i class="fa fa-arrow-left" aria-hidden="true"></i>
-    </a>
-    <div class="username-header">
-        <div><b>{{ profile.display_name }}</b></div>
-        <div class="handle">{{ profile.user.username }}</div>
-    </div>
-</div>
+
+{% include 'components/profile-header.html' %}
 
 <div class="profile-options">
     <a href="{% url 'followers' profile.user.username %}" class="option-btn">
@@ -32,39 +25,7 @@
 
 
 <div class="follow-content">
-{% if type == "following" %}
-    {% for following in profile.follows.all %}
-    <a href="{% url 'profile' following.user.username %}" class="user-detail-container timeline-segment">
-        <img class="profile-pic"></img>
-        <div class="user-detail-text">
-            <p><b>{{ following.display_name }}</b></p>
-            <p class="handle">{{ following.user.username }}</p>
-            <p>{{ following.bio }}</p>
-        </div>
-        <div class="follow-btn-container">
-            <div class="following-btn btn">Following</div>
-        </div>
-    </a>
-    {% endfor %}
-{% else %}
-    {% for follower in profile.followed_by.all %}
-        <a href="{% url 'profile' follower.user.username %}" class="user-detail-container timeline-segment">
-            <img class="profile-pic"></img>
-            <div class="user-detail-text">
-                <p><b>{{ follower.display_name }}</b></p>
-                <p class="handle">{{ follower.user.username }}</p>
-                <p>{{ follower.bio }}</p>
-            </div>
-            <div class="follow-btn-container">
-                {% if follower in profile.follows.all %}
-                    <div class="following-btn btn">Following</div>
-                {% else %}
-                    <div class="not-following-btn btn">Follow</div>
-                {% endif %}
-            </div>
-        </a>
-    {% endfor %}
-{% endif %}
+    {% include "components/user-list.html" with follow_list=follow_list %}
 </div>
 
 {% endblock content %}

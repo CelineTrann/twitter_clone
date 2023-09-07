@@ -1,0 +1,24 @@
+<form method="post">
+{% csrf_token %}
+{% for follow in follow_list %}
+    <a href="{% url 'profile' follow.user.username %}" class="user-detail-container timeline-segment">
+
+        <img class="profile-pic"></img>
+
+        <div class="user-detail-text">
+            <p><b>{{ follow.display_name }}</b></p>
+            <p class="handle">{{ follow.user.username }}</p>
+            <p>{{ follow.bio }}</p>
+        </div>
+        
+        <div class="follow-btn-container">
+            {% if follow in profile.follows.all %}
+                <button class="following-btn btn" name="unfollow" value="{{ follow }}">Following</button>
+            {% else %}
+                <button class="not-following-btn btn" name="follow" value="{{ follow }}">Follow</div>
+            {% endif %}
+        </div>
+
+    </a>
+{% endfor %}
+</form>

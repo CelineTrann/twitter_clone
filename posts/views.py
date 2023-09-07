@@ -76,9 +76,11 @@ def profile(request, request_username):
     
 @login_required
 def follow(request, request_username):
-    profile = Profile.objects.get(user__username = request_username)    
+    curr_profile = Profile.objects.get(user__username = request_username)  
     if request.path == f"/profile/{request_username}/following":
-        return render(request, "follow.html", {"profile": profile, "type": "following"})
+        following_list = curr_profile.follows.exclude(follows = curr_profile)
+        return render(request, "follow.html", {"profile": curr_profile, "follow_list": following_list, "type": "following"})
     else: 
-        return render(request, "follow.html", {"profile": profile, "type": "followers"})
+        follower_list = curr_profile.followed_by.exclude(followed_by = curr_profile)
+        return render(request, "follow.html", {"profile": curr_profile, "follow_list": follower_list, "type": "followers"})
         
