@@ -6,12 +6,17 @@
 }
 
 .user-detail-container:hover {
+    text-decoration: none;
     background-color: var(--gray-hover);
     cursor: pointer;
 }
 
 .user-detail-text {
     flex-grow: 1;
+}
+
+.underline-hover:hover {
+    text-decoration: underline;
 }
 
 /* Follow Buttons */
