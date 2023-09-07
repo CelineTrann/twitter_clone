@@ -4,6 +4,7 @@ from .forms import TweetForm, UserProfileForm, CustomUserCreationForm
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
+from django.db.models import Q
 
 from django.http import HttpResponse
 
@@ -38,7 +39,7 @@ def home(request):
     if not hasattr(request.user, 'profile'):
         return redirect(profile_creation)
     
-    items = Tweet.objects.all().order_by("-updated_at")
+    items = Tweet.objects.filter(Q(user__profile__followed_by=request.user.profile) | Q(user=request.user)).order_by("-updated_at")
     modal_form = TweetForm(prefix="modal")
     direct_form = TweetForm(prefix="direct")
     return render(request, "home.html", {"Tweets": items, "modal_form": modal_form, "direct_form": direct_form})
