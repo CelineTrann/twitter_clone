@@ -51,12 +51,12 @@
 
 <div class="options-container">
     <a href="{% url 'profile' profile.user.username %}" class="option-btn">
-        <div class="option current-option ">
+        <div class="option {% if type == 'posts' %}current-option{% endif %} ">
             Posts
         </div>
     </a>
-    <a href="" class="option-btn">
-        <div class="option">
+    <a href="{% url 'profile_likes' profile.user.username %}" class="option-btn">
+        <div class="option {% if type == 'likes' %}current-option{% endif %}">
             Likes
         </div>
     </a>

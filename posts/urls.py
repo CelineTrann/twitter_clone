@@ -10,6 +10,8 @@ urlpatterns = [
     path("like/<int:tweet_id>", views.like_tweet, name="like_tweet"),
 
     path("profile/<str:request_username>", views.profile, name="profile"),
+    path("profile/<str:request_username>/likes", views.profile_likes, name="profile_likes"),
+    
     path("profile/<str:request_username>/following", views.follow, name="following"),
     path("profile/<str:request_username>/followers", views.follow, name="followers"),
     path("follow/", views.follow_unfollow, name="follow_unfollow"),
