@@ -83,6 +83,15 @@ def like_tweet(request, tweet_id):
     else:
         tweet.likes.add(request.user)
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required
+def retweet_tweet(request, tweet_id):
+    tweet = Tweet.objects.get(id=tweet_id)
+    if tweet.retweets.filter(id=request.user.id).exists():
+        tweet.retweets.remove(request.user)
+    else: 
+        tweet.retweets.add(request.user)
+    return redirect(request.META.get('HTTP_REFERER', '/'))
                 
 @login_required
 def profile(request, request_username):
