@@ -20,8 +20,14 @@ class Profile(models.Model):
 class Tweet(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, blank=True)
     content = models.CharField(max_length=255)
+    likes = models.ManyToManyField(User, through="Tweet_Likes", related_name='tweet_like')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.content
+    
+class Tweet_Likes(models.Model):
+    tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE)
+    curr_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)

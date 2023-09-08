@@ -74,6 +74,15 @@ def delete_tweet(request, tweet_id):
         raise PermissionDenied("User can't delete this tweet.")
     
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required
+def like_tweet(request, tweet_id):
+    tweet = Tweet.objects.get(id=tweet_id)
+    if tweet.likes.filter(id=request.user.id).exists():
+        tweet.likes.remove(request.user)
+    else:
+        tweet.likes.add(request.user)
+    return redirect(request.META.get('HTTP_REFERER', '/'))
                 
 @login_required
 def profile(request, request_username):
@@ -83,7 +92,18 @@ def profile(request, request_username):
     modal_form = TweetForm(prefix="modal")
     profile_info = Profile.objects.get(user__username = request_username)
     items = Tweet.objects.filter(user__username = request_username).order_by("-updated_at")
-    return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items})
+    return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'posts'})
+
+@login_required
+def profile_likes(request, request_username):
+    if not hasattr(request.user, 'profile'):
+        return redirect(profile_creation)
+
+    modal_form = TweetForm(prefix="modal")
+    profile_info = Profile.objects.get(user__username = request_username)
+    items = Tweet.objects.filter(likes__username=request_username).order_by("-tweet_likes__created_at")
+    return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'likes'})
+    
     
 @login_required
 def follow(request, request_username):
