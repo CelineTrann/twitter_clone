@@ -28,16 +28,18 @@
     justify-content: space-between;
 }
 
+/* Icons */
 .icon {
     width: 15%;
     transition: color 0.25s;
 }
 
-.comment-icon:hover, .bar-icon:hover {
+.comment-icon:hover, 
+.bar-icon:hover {
     color: var(--twitter-blue);
 }
 
-.retweet-icon:hover {
+.retweeted-retweet-icon, .retweet-icon:hover {
     color: var(--retweet-green);
 }
 

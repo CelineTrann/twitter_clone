@@ -16,8 +16,9 @@
             <span class="icon comment-icon">
                 <i class="fa fa-comment-o" aria-hidden="true"></i> 1
             </span>
-            <span class="icon retweet-icon">
-                <i class="fa fa-retweet" aria-hidden="true"></i> 1
+            <span class="icon {% if request.user in tweet.retweets.all %}retweeted-retweet-icon{% else %}retweet-icon{% endif %}">
+                <i class="fa fa-retweet" aria-hidden="true"></i>
+                {{ tweet.retweets.count }}
             </span>
             <span class="icon {% if request.user in tweet.likes.all %}liked-heart-icon{% else %}heart-icon{% endif %}">
                 <a href="{% url 'like_tweet' tweet.id %}" class='hover-no-underline'>
