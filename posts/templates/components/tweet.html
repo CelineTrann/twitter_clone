@@ -27,5 +27,12 @@
             </span>
         </div>
     </div>
+    {% if tweet.user == request.user %}
+    <div class="tweet-more">
+        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+    </div>
+    {% else %}
+    <div class="tweet-more-placeholder"></div>
+    {% endif %}
 </div>
 {% endfor %}

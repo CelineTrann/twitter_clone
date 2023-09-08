@@ -15,6 +15,30 @@
     flex-direction: column;
 }
 
+.header {
+    width: 100%;
+}
+
+.tweet-more {
+    height: 2em;
+    width: 2em;
+    padding: 0.25em;
+    border-radius: 50%;
+    text-align: center;
+
+    transition: background-color 0.25s;
+}
+
+.tweet-more:hover {
+    background-color: var(--twitter-blue-disabled);
+    color: var(--background);
+}
+
+.tweet-more-placeholder {
+    width: 2em;
+    padding: 0.25em;
+}
+
 .post-username, .post-date {
     color: var(--gray-text);
 }
