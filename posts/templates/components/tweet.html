@@ -33,7 +33,7 @@
             <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
         </div>
         <div class="tweet-popup" id="tweet-popup">
-            <div class="delete-btn">Delete</div>
+            <a href="{% url 'delete_tweet' tweet.id %}" class="delete-btn">Delete</a>
         </div>
     </div>
     {% else %}
