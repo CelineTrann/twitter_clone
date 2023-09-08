@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Tweet, Profile, User
 from .forms import TweetForm, UserProfileForm, CustomUserCreationForm
 
+from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.db.models import Q
@@ -65,6 +66,14 @@ def post(request):
         
         return redirect(prev_link)
 
+@login_required
+def delete_tweet(request, tweet_id):
+    try:
+        Tweet.objects.get(id=tweet_id, user=request.user).delete()
+    except Tweet.DoesNotExist:
+        raise PermissionDenied("User can't delete this tweet.")
+    
+    return redirect(request.META.get('HTTP_REFERER', '/'))
                 
 @login_required
 def profile(request, request_username):
@@ -86,7 +95,7 @@ def follow(request, request_username):
         follower_list = curr_profile.followed_by.exclude(followed_by = curr_profile)
         return render(request, "follow.html", {"profile": curr_profile, "follow_list": follower_list, "type": "followers"})
         
-
+@login_required
 def follow_unfollow(request):
     if request.method == 'POST':
         current_user_profile = Profile.objects.get(user__username = request.user.username)

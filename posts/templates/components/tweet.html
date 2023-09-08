@@ -27,5 +27,17 @@
             </span>
         </div>
     </div>
+    {% if tweet.user == request.user %}
+    <div class="tweet-more-container">
+        <div class="tweet-more" onclick="togglePopUp(this, event)">
+            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+        </div>
+        <div class="tweet-popup" id="tweet-popup">
+            <a href="{% url 'delete_tweet' tweet.id %}" class="delete-btn">Delete</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="tweet-more-placeholder"></div>
+    {% endif %}
 </div>
 {% endfor %}
