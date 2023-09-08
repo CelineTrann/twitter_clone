@@ -100,7 +100,9 @@ def profile(request, request_username):
     
     modal_form = TweetForm(prefix="modal")
     profile_info = Profile.objects.get(user__username = request_username)
-    items = Tweet.objects.filter(user__username = request_username).order_by("-updated_at")
+    items = Tweet.objects \
+        .filter(Q(user__username = request_username) | Q(retweets__username = request_username)) \
+        .order_by("-updated_at" or "-tweet_retweets__created_at") 
     return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'posts'})
 
 @login_required
