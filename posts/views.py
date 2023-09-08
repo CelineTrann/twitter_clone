@@ -98,7 +98,7 @@ def profile(request, request_username):
 def profile_likes(request, request_username):
     modal_form = TweetForm(prefix="modal")
     profile_info = Profile.objects.get(user__username = request_username)
-    items = Tweet.objects.filter(likes__username=request_username)
+    items = Tweet.objects.filter(likes__username=request_username).order_by("-tweet_likes__created_at")
     return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'likes'})
     
     
