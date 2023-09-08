@@ -20,6 +20,7 @@ class Profile(models.Model):
 class Tweet(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, blank=True)
     content = models.CharField(max_length=255)
+    likes = models.ManyToManyField(User, related_name='tweet_like')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

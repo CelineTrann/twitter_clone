@@ -41,7 +41,7 @@
     color: var(--retweet-green);
 }
 
-.heart-icon:hover {
+.liked-heart-icon, .heart-icon:hover {
     color: var(--heart-red);
 }
 

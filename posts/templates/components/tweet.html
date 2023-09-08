@@ -19,8 +19,9 @@
             <span class="icon retweet-icon">
                 <i class="fa fa-retweet" aria-hidden="true"></i> 1
             </span>
-            <span class="icon heart-icon">
-                <i class="fa fa-heart-o" aria-hidden="true"></i> 1
+            <span class="icon {% if request.user in tweet.likes.all %}liked-heart-icon{% else %}heart-icon{% endif %}">
+                <i class="fa {% if request.user in tweet.likes.all %}fa-heart{% else %}fa-heart-o{% endif %}" aria-hidden="true"></i>
+                {{ tweet.likes.count }}
             </span>
             <span class="icon bar-icon">
                 <i class="fa fa-bar-chart" aria-hidden="true"></i> 1
@@ -41,3 +42,4 @@
     {% endif %}
 </div>
 {% endfor %}
+
