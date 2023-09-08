@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Tweet, Profile, User
+from .models import Tweet, Profile, User, Tweet_Retweets
 from .forms import TweetForm, UserProfileForm, CustomUserCreationForm
 
 from django.core.exceptions import PermissionDenied
@@ -39,9 +39,7 @@ def profile_creation(request):
 def home(request):
     if not hasattr(request.user, 'profile'):
         return redirect(profile_creation)
-    
     items = Tweet.objects.filter(Q(user__profile__followed_by=request.user.profile) | Q(user=request.user)).order_by("-updated_at")
-    modal_form = TweetForm(prefix="modal")
     direct_form = TweetForm(prefix="direct")
     return render(request, "home.html", {"Tweets": items, "modal_form": modal_form, "direct_form": direct_form})
 
@@ -100,9 +98,19 @@ def profile(request, request_username):
     
     modal_form = TweetForm(prefix="modal")
     profile_info = Profile.objects.get(user__username = request_username)
-    items = Tweet.objects \
-        .filter(Q(user__username = request_username) | Q(retweets__username = request_username)) \
-        .order_by("-updated_at" or "-tweet_retweets__created_at") 
+
+    tweets = list(Tweet.objects.filter(user=request.user).order_by("-updated_at"))
+    retweet_dates = list(Tweet_Retweets.objects.filter(curr_user=request.user).order_by("-created_at"))
+    items = []
+    for t in tweets:
+        for rd in retweet_dates:
+            if rd.created_at > t.updated_at and rd not in items:
+                items.append(rd.tweet)
+                retweet_dates.remove(rd)
+            else: 
+                break
+        items.append(t)
+
     return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'posts'})
 
 @login_required

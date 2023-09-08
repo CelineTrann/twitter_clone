@@ -7,7 +7,7 @@
     ></img> 
     <div class="content">
         <div class="header">
-            <a href="{% url 'profile' user.username %}"><b>{{ tweet.user.profile.display_name }}</b></a>
+            <a href="{% url 'profile' tweet.user.username %}"><b>{{ tweet.user.profile.display_name }}</b></a>
             <span class="post-username">@{{ tweet.user }}</span>
             <span class="post-date">• {{ tweet.created_at |date:"M d" }}</span>
         </div>
