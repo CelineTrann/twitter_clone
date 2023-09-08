@@ -74,6 +74,15 @@ def delete_tweet(request, tweet_id):
         raise PermissionDenied("User can't delete this tweet.")
     
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required
+def like_tweet(request, tweet_id):
+    tweet = Tweet.objects.get(id=tweet_id)
+    if tweet.likes.filter(id=request.user.id).exists():
+        tweet.likes.remove(request.user)
+    else:
+        tweet.likes.add(request.user)
+    return redirect(request.META.get('HTTP_REFERER', '/'))
                 
 @login_required
 def profile(request, request_username):

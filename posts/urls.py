@@ -7,6 +7,7 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("post/", views.post, name="post"),
     path("delete/<int:tweet_id>", views.delete_tweet, name="delete_tweet"),
+    path("like/<int:tweet_id>", views.like_tweet, name="like_tweet"),
 
     path("profile/<str:request_username>", views.profile, name="profile"),
     path("profile/<str:request_username>/following", views.follow, name="following"),
