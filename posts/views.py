@@ -96,6 +96,9 @@ def profile(request, request_username):
 
 @login_required
 def profile_likes(request, request_username):
+    if not hasattr(request.user, 'profile'):
+        return redirect(profile_creation)
+
     modal_form = TweetForm(prefix="modal")
     profile_info = Profile.objects.get(user__username = request_username)
     items = Tweet.objects.filter(likes__username=request_username).order_by("-tweet_likes__created_at")
