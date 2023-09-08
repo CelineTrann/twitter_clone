@@ -28,8 +28,13 @@
         </div>
     </div>
     {% if tweet.user == request.user %}
-    <div class="tweet-more">
-        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+    <div class="tweet-more-container">
+        <div class="tweet-more" onclick="togglePopUp(this, event)">
+            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+        </div>
+        <div class="tweet-popup" id="tweet-popup">
+            <div class="delete-btn">Delete</div>
+        </div>
     </div>
     {% else %}
     <div class="tweet-more-placeholder"></div>
