@@ -1,54 +1,69 @@
 {% for tweet in Tweets %}
 <div class="tweet timeline-segment">
-    <img 
-        src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
-        alt="profile picture" 
-        class="profile-pic"
-    ></img> 
-    <div class="content">
-        <div class="header">
-            <a href="{% url 'profile' tweet.user.username %}"><b>{{ tweet.user.profile.display_name }}</b></a>
-            <span class="post-username">@{{ tweet.user }}</span>
-            <span class="post-date">• {{ tweet.created_at |date:"M d" }}</span>
-        </div>
-        <p>{{ tweet.content }}</p>
-        <div class="post-icons">
-            <span class="icon comment-icon">
-                <a href="" class='hover-no-underline'>
-                    <i class="fa fa-comment-o" aria-hidden="true"></i> 1
+    <div class="tweet-top">
+        {% if tweet.retweeted_by.username|length > 0 %}
+            <i class="fa fa-retweet" aria-hidden="true"></i>
+            <span>
+                <a href="{% url 'profile' tweet.retweeted_by.username %}">
+                    {% if tweet.retweeted_by == request.user %}You
+                    {% else %}{{ tweet.retweeted_by.profile.display_name }}
+                    {% endif %}
+                    Retweeted
                 </a>
             </span>
-            <span class="icon {% if request.user in tweet.retweets.all %}retweeted-retweet-icon{% else %}retweet-icon{% endif %}">
-                <a href="{% url 'retweet_tweet' tweet.id %}" class='hover-no-underline'>
-                    <i class="fa fa-retweet" aria-hidden="true"></i>
-                    {{ tweet.retweets.count }}
-                </a>
-            </span>
-            <span class="icon {% if request.user in tweet.likes.all %}liked-heart-icon{% else %}heart-icon{% endif %}">
-                <a href="{% url 'like_tweet' tweet.id %}" class='hover-no-underline'>
-                    <i class="fa {% if request.user in tweet.likes.all %}fa-heart{% else %}fa-heart-o{% endif %}" aria-hidden="true"></i>
-                    {{ tweet.likes.count }}
-                </a>
-            </span>
-            <span class="icon bar-icon">
-                <a href="" class='hover-no-underline'>
-                    <i class="fa fa-bar-chart" aria-hidden="true"></i> 1
-                </a>
-            </span>
-        </div>
+        {% endif %}
     </div>
-    {% if tweet.user == request.user %}
-    <div class="tweet-more-container">
-        <div class="tweet-more" onclick="togglePopUp(this, event)">
-            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+    <div class="tweet-bottom">
+        <img 
+            src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
+            alt="profile picture" 
+            class="profile-pic"
+        ></img> 
+        <div class="content">
+            <div class="header">
+                <a href="{% url 'profile' tweet.user.username %}"><b>{{ tweet.user.profile.display_name }}</b></a>
+                <span class="post-username">@{{ tweet.user }}</span>
+                <span class="post-date">• {{ tweet.created_at |date:"M d" }}</span>
+            </div>
+            <p>{{ tweet.content }}</p>
+            <div class="post-icons">
+                <span class="icon comment-icon">
+                    <a href="" class='hover-no-underline'>
+                        <i class="fa fa-comment-o" aria-hidden="true"></i> 1
+                    </a>
+                </span>
+                <span class="icon {% if request.user in tweet.retweets.all %}retweeted-retweet-icon{% else %}retweet-icon{% endif %}">
+                    <a href="{% url 'retweet_tweet' tweet.id %}" class='hover-no-underline'>
+                        <i class="fa fa-retweet" aria-hidden="true"></i>
+                        {{ tweet.retweets.count }}
+                    </a>
+                </span>
+                <span class="icon {% if request.user in tweet.likes.all %}liked-heart-icon{% else %}heart-icon{% endif %}">
+                    <a href="{% url 'like_tweet' tweet.id %}" class='hover-no-underline'>
+                        <i class="fa {% if request.user in tweet.likes.all %}fa-heart{% else %}fa-heart-o{% endif %}" aria-hidden="true"></i>
+                        {{ tweet.likes.count }}
+                    </a>
+                </span>
+                <span class="icon bar-icon">
+                    <a href="" class='hover-no-underline'>
+                        <i class="fa fa-bar-chart" aria-hidden="true"></i> 1
+                    </a>
+                </span>
+            </div>
         </div>
-        <div class="tweet-popup" id="tweet-popup">
-            <a href="{% url 'delete_tweet' tweet.id %}" class="delete-btn">Delete</a>
+        {% if tweet.user == request.user %}
+        <div class="tweet-more-container">
+            <div class="tweet-more" onclick="togglePopUp(this, event)">
+                <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+            </div>
+            <div class="tweet-popup" id="tweet-popup">
+                <a href="{% url 'delete_tweet' tweet.id %}" class="delete-btn">Delete</a>
+            </div>
         </div>
+        {% else %}
+        <div class="tweet-more-placeholder"></div>
+        {% endif %}
     </div>
-    {% else %}
-    <div class="tweet-more-placeholder"></div>
-    {% endif %}
 </div>
 {% endfor %}
 

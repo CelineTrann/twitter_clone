@@ -107,13 +107,6 @@ def profile(request, request_username):
     modal_form = TweetForm(prefix="modal")
     profile_info = Profile.objects.get(user__username = request_username)
 
-    # tweets = list(Tweet.objects \
-    #             .filter(Q(user__profile__followed_by=request.user.profile) | Q(user=request.user)) \
-    #             .order_by("-updated_at") \
-    #             .distinct())
-    # retweet_dates = list(Tweet_Retweets.objects.filter(curr_user__profile__in=request.user.profile.follows.all()).order_by("-created_at"))
-    # items = tweet_join_retweet(tweets, retweet_dates)
-
     tweets = list(Tweet.objects.filter(user__username=request_username).order_by("-updated_at"))
     retweet_dates = list(Tweet_Retweets.objects.filter(curr_user__username=request_username).order_by("-created_at"))
     items = tweet_join_retweet(tweets, retweet_dates)
@@ -163,6 +156,7 @@ def tweet_join_retweet(tweets, retweets):
     for t in tweets:
         for rd in retweets:
             if rd.created_at > t.updated_at:
+                rd.tweet.retweeted_by = rd.curr_user
                 items.append(rd.tweet)
                 retweets.remove(rd)
             else: 

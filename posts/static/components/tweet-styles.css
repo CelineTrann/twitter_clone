@@ -1,12 +1,22 @@
 /* Tweet  */
 .tweet {
     display: flex;
+    flex-direction: column;
     transition: background-color 0.25s;
 }
 
 .tweet:hover {
     background-color: var(--gray-hover);
     cursor: pointer;
+}
+
+.tweet-top {
+    margin-bottom: 0.5rem;
+    color: var(--gray-text);
+}
+
+.tweet-bottom {
+    display: flex;
 }
 
 .content {
