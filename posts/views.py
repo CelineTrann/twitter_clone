@@ -39,7 +39,15 @@ def profile_creation(request):
 def home(request):
     if not hasattr(request.user, 'profile'):
         return redirect(profile_creation)
-    items = Tweet.objects.filter(Q(user__profile__followed_by=request.user.profile) | Q(user=request.user)).order_by("-updated_at")
+    
+    tweets = list(Tweet.objects \
+                .filter(Q(user__profile__followed_by=request.user.profile) | Q(user=request.user)) \
+                .order_by("-updated_at") \
+                .distinct())
+    retweet_dates = list(Tweet_Retweets.objects.filter(curr_user__profile__in=request.user.profile.follows.all()).order_by("-created_at"))
+    items = tweet_join_retweet(tweets, retweet_dates)
+
+    modal_form = TweetForm(prefix="modal")
     direct_form = TweetForm(prefix="direct")
     return render(request, "home.html", {"Tweets": items, "modal_form": modal_form, "direct_form": direct_form})
 
@@ -101,15 +109,7 @@ def profile(request, request_username):
 
     tweets = list(Tweet.objects.filter(user=request.user).order_by("-updated_at"))
     retweet_dates = list(Tweet_Retweets.objects.filter(curr_user=request.user).order_by("-created_at"))
-    items = []
-    for t in tweets:
-        for rd in retweet_dates:
-            if rd.created_at > t.updated_at and rd not in items:
-                items.append(rd.tweet)
-                retweet_dates.remove(rd)
-            else: 
-                break
-        items.append(t)
+    items = tweet_join_retweet(tweets, retweet_dates)
 
     return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'posts'})
 
@@ -149,3 +149,17 @@ def follow_unfollow(request):
         current_user_profile.save()
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def tweet_join_retweet(tweets, retweets):
+    items = []
+    for t in tweets:
+        for rd in retweets:
+            if rd.created_at < t.updated_at:
+                items.append(rd.tweet)
+                retweets.remove(rd)
+            else: 
+                break
+        items.append(t)
+
+    return items
