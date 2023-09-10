@@ -44,7 +44,9 @@ def home(request):
                 .filter(Q(user__profile__followed_by=request.user.profile) | Q(user=request.user)) \
                 .order_by("-updated_at") \
                 .distinct())
-    retweet_dates = list(Tweet_Retweets.objects.filter(curr_user__profile__in=request.user.profile.follows.all()).order_by("-created_at"))
+    retweet_dates = list(Tweet_Retweets .objects. \
+                filter(curr_user__profile__in=request.user.profile.follows.all()) \
+                .order_by("-created_at"))
     items = tweet_join_retweet(tweets, retweet_dates)
 
     modal_form = TweetForm(prefix="modal")
@@ -153,17 +155,15 @@ def follow_unfollow(request):
 
 def tweet_join_retweet(tweets, retweets):
     items = []
-    for t in tweets:
-        for rd in retweets:
-            if rd.created_at > t.updated_at:
-                rd.tweet.retweeted_by = rd.curr_user
-                items.append(rd.tweet)
-                retweets.remove(rd)
-            else: 
-                break
-        items.append(t)
+    t, r = 0, 0
+    while (t < len(tweets) and r < len(retweets)):
+        curr_retweet, curr_tweet = retweets[r], tweets[t]
+        if curr_retweet.created_at > curr_tweet.updated_at:
+            curr_retweet.tweet.retweeted_by = curr_retweet.curr_user
+            items.append(curr_retweet.tweet)
+            r += 1
+        else:
+            items.append(curr_tweet)
+            t += 1
 
-    for rd in retweets:
-        items.append(rd.tweet)
-
-    return items
+    return items + tweets[t:] + retweets[r:].tweet
