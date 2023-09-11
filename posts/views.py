@@ -152,6 +152,11 @@ def follow_unfollow(request):
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required
+def tweet_detail(request, request_username, tweet_id):
+    original_tweet = Tweet.objects.get(id=tweet_id)
+    return render(request, "detail.html", {"original_tweet": original_tweet})
+
 
 def tweet_join_retweet(tweets, retweets):
     items = []
@@ -166,4 +171,10 @@ def tweet_join_retweet(tweets, retweets):
             items.append(curr_tweet)
             t += 1
 
-    return items + tweets[t:] + retweets[r:].tweet
+    if t < len(tweets):
+        items += tweets[t:]
+
+    if r < len(retweets):
+        items += retweets[r:].tweet
+
+    return items

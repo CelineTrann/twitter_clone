@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="/static/components/tweet-styles.css" />
+    <link rel="stylesheet" href="/static/components/profile-header-styles.css" />
+
+    <script src="/static/components/tweet.js"></script>
+{% endblock head %}
+
+{% block content %}
+{% include 'components/profile-header.html' with profile=original_tweet.user.profile %}
+
+{% comment %} {% include 'components/tweet.html' with tweet=original_tweet %} {% endcomment %}
+
+{% endblock content %}
