@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Tweet, Profile, User
+from .models import Tweet, Profile, User, Tweet_Retweets
 from .forms import TweetForm, UserProfileForm, CustomUserCreationForm
 
 from django.core.exceptions import PermissionDenied
@@ -40,7 +40,15 @@ def home(request):
     if not hasattr(request.user, 'profile'):
         return redirect(profile_creation)
     
-    items = Tweet.objects.filter(Q(user__profile__followed_by=request.user.profile) | Q(user=request.user)).order_by("-updated_at")
+    tweets = list(Tweet.objects \
+                .filter(Q(user__profile__followed_by=request.user.profile) | Q(user=request.user)) \
+                .order_by("-updated_at") \
+                .distinct())
+    retweet_dates = list(Tweet_Retweets .objects. \
+                filter(curr_user__profile__in=request.user.profile.follows.all()) \
+                .order_by("-created_at"))
+    items = tweet_join_retweet(tweets, retweet_dates)
+
     modal_form = TweetForm(prefix="modal")
     direct_form = TweetForm(prefix="direct")
     return render(request, "home.html", {"Tweets": items, "modal_form": modal_form, "direct_form": direct_form})
@@ -83,6 +91,15 @@ def like_tweet(request, tweet_id):
     else:
         tweet.likes.add(request.user)
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required
+def retweet_tweet(request, tweet_id):
+    tweet = Tweet.objects.get(id=tweet_id)
+    if tweet.retweets.filter(id=request.user.id).exists():
+        tweet.retweets.remove(request.user)
+    else: 
+        tweet.retweets.add(request.user)
+    return redirect(request.META.get('HTTP_REFERER', '/'))
                 
 @login_required
 def profile(request, request_username):
@@ -91,7 +108,11 @@ def profile(request, request_username):
     
     modal_form = TweetForm(prefix="modal")
     profile_info = Profile.objects.get(user__username = request_username)
-    items = Tweet.objects.filter(user__username = request_username).order_by("-updated_at")
+
+    tweets = list(Tweet.objects.filter(user__username=request_username).order_by("-updated_at"))
+    retweet_dates = list(Tweet_Retweets.objects.filter(curr_user__username=request_username).order_by("-created_at"))
+    items = tweet_join_retweet(tweets, retweet_dates)
+
     return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'posts'})
 
 @login_required
@@ -130,3 +151,19 @@ def follow_unfollow(request):
         current_user_profile.save()
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def tweet_join_retweet(tweets, retweets):
+    items = []
+    t, r = 0, 0
+    while (t < len(tweets) and r < len(retweets)):
+        curr_retweet, curr_tweet = retweets[r], tweets[t]
+        if curr_retweet.created_at > curr_tweet.updated_at:
+            curr_retweet.tweet.retweeted_by = curr_retweet.curr_user
+            items.append(curr_retweet.tweet)
+            r += 1
+        else:
+            items.append(curr_tweet)
+            t += 1
+
+    return items + tweets[t:] + retweets[r:].tweet

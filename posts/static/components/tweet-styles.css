@@ -1,12 +1,22 @@
 /* Tweet  */
 .tweet {
     display: flex;
+    flex-direction: column;
     transition: background-color 0.25s;
 }
 
 .tweet:hover {
     background-color: var(--gray-hover);
     cursor: pointer;
+}
+
+.tweet-top {
+    margin-bottom: 0.5rem;
+    color: var(--gray-text);
+}
+
+.tweet-bottom {
+    display: flex;
 }
 
 .content {
@@ -28,16 +38,18 @@
     justify-content: space-between;
 }
 
+/* Icons */
 .icon {
     width: 15%;
     transition: color 0.25s;
 }
 
-.comment-icon:hover, .bar-icon:hover {
+.comment-icon:hover, 
+.bar-icon:hover {
     color: var(--twitter-blue);
 }
 
-.retweet-icon:hover {
+.retweeted-retweet-icon, .retweet-icon:hover {
     color: var(--retweet-green);
 }
 

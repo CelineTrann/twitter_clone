@@ -21,6 +21,7 @@ class Tweet(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, blank=True)
     content = models.CharField(max_length=255)
     likes = models.ManyToManyField(User, through="Tweet_Likes", related_name='tweet_like')
+    retweets = models.ManyToManyField(User, through="Tweet_Retweets", related_name='retweeted_by')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -28,6 +29,11 @@ class Tweet(models.Model):
         return self.content
     
 class Tweet_Likes(models.Model):
-    tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE)
-    curr_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tweet = models.ForeignKey(Tweet, on_delete=models.DO_NOTHING)
+    curr_user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class Tweet_Retweets(models.Model):
+    tweet = models.ForeignKey(Tweet, on_delete=models.DO_NOTHING)
+    curr_user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
