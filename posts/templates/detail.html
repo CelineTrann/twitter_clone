@@ -10,7 +10,7 @@
 {% block content %}
 {% include 'components/profile-header.html' with profile=original_tweet.user.profile %}
 
-<div class="tweet detail-tweet">
+<div class="detail-tweet">
     <div class="tweet-header">
         <img 
             src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
@@ -23,13 +23,13 @@
             <div class="post-username">@{{ original_tweet.user }}</div>
         </div>
 
-        {% if tweet.user == request.user %}
+        {% if original_tweet.user == request.user %}
         <div class="tweet-more-container">
             <div class="tweet-more" onclick="togglePopUp(this, event)">
                 <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
             </div>
             <div class="tweet-popup" id="tweet-popup">
-                <a href="{% url 'delete_tweet' tweet.id %}" class="delete-btn">Delete</a>
+                <a href="{% url 'delete_tweet' original_tweet.id %}" class="delete-btn">Delete</a>
             </div>
         </div>
         {% else %}
@@ -49,13 +49,13 @@
         <span class="icon {% if request.user in original_tweet.retweets.all %}retweeted-retweet-icon{% else %}retweet-icon{% endif %}">
             <a href="{% url 'retweet_tweet' original_tweet.id %}" class='hover-no-underline'>
                 <i class="fa fa-retweet" aria-hidden="true"></i>
-                {{ original_tweet.retweets.count }}
+                {% if original_tweet.retweets.count > 0 %}{{ original_tweet.retweets.count }}{% endif %}
             </a>
         </span>
         <span class="icon {% if request.user in original_tweet.likes.all %}liked-heart-icon{% else %}heart-icon{% endif %}">
             <a href="{% url 'like_tweet' original_tweet.id %}" class='hover-no-underline'>
                 <i class="fa {% if request.user in original_tweet.likes.all %}fa-heart{% else %}fa-heart-o{% endif %}" aria-hidden="true"></i>
-                {{ original_tweet.likes.count }}
+                {% if original_tweet.likes.count > 0 %}{{ original_tweet.likes.count }}{% endif %}
             </a>
         </span>
         <span class="icon bar-icon">

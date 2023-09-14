@@ -35,13 +35,13 @@
                 <span class="icon {% if request.user in tweet.retweets.all %}retweeted-retweet-icon{% else %}retweet-icon{% endif %}">
                     <a href="{% url 'retweet_tweet' tweet.id %}" class='hover-no-underline'>
                         <i class="fa fa-retweet" aria-hidden="true"></i>
-                        {{ tweet.retweets.count }}
+                        {% if tweet.retweets.count > 0 %}{{ tweet.retweets.count }}{% endif %}
                     </a>
                 </span>
                 <span class="icon {% if request.user in tweet.likes.all %}liked-heart-icon{% else %}heart-icon{% endif %}">
                     <a href="{% url 'like_tweet' tweet.id %}" class='hover-no-underline'>
                         <i class="fa {% if request.user in tweet.likes.all %}fa-heart{% else %}fa-heart-o{% endif %}" aria-hidden="true"></i>
-                        {{ tweet.likes.count }}
+                        {% if tweet.likes.count > 0 %}{{ tweet.likes.count }}{% endif %}
                     </a>
                 </span>
                 <span class="icon bar-icon">

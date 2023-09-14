@@ -1,6 +1,8 @@
 .detail-tweet {
     font-size: 1.05rem;
     padding: 10px 25px;
+    display: flex;
+    flex-direction: column;
 }
 
 .tweet-header {
