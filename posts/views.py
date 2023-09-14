@@ -154,6 +154,7 @@ def follow_unfollow(request):
 
 @login_required
 def tweet_detail(request, request_username, tweet_id):
+    curr_user = User.objects.get(username=request_username)
     original_tweet = Tweet.objects.get(id=tweet_id)
     return render(request, "detail.html", {"original_tweet": original_tweet})
 
