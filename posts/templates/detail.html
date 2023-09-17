@@ -43,7 +43,8 @@
     <div class="post-icons">
         <span class="icon comment-icon">
             <a href="" class='hover-no-underline'>
-                <i class="fa fa-comment-o" aria-hidden="true"></i> 1
+                <i class="fa fa-comment-o" aria-hidden="true"></i> 
+                {% if original_tweet.reply.count > 0 %}{{ original_tweet.reply.count }}{% endif %}
             </a>
         </span>
         <span class="icon {% if request.user in original_tweet.retweets.all %}retweeted-retweet-icon{% else %}retweet-icon{% endif %}">
