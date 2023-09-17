@@ -159,6 +159,8 @@ def follow_unfollow(request):
 @login_required
 def tweet_detail(request, request_username, tweet_id):
     curr_user = User.objects.get(username=request_username)
+    modal_form = TweetForm(prefix="modal")
+
     original_tweet = Tweet.objects.get(id=tweet_id)
     reply_form = TweetForm(prefix="reply")
 
@@ -166,7 +168,7 @@ def tweet_detail(request, request_username, tweet_id):
     tweets = [x.tweet for x in current_convo]
     # parent = Tweet.objects.filter(convo_tweet=tweet_id)
 
-    return render(request, "detail.html", {"original_tweet": original_tweet, "reply_form": reply_form, "Tweets": tweets})
+    return render(request, "detail.html", {"original_tweet": original_tweet, "reply_form": reply_form, "Tweets": tweets, "modal_form": modal_form})
 
 @login_required
 def reply(request, tweet_id):

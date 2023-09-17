@@ -13,8 +13,7 @@
         {{ content }}
     </div>
     <div class="post-bottom">
-        <p id="
-            {% if type == 'direct' %}direct-char-count 
+        <p id="{% if type == 'direct' %}direct-char-count 
             {% elif type == 'modal' %}modal-char-count
             {% elif type == 'reply' %}reply-char-count
             {% endif %}"> 0 / 255 characters</p>
@@ -22,8 +21,7 @@
             type="submit" 
             value="{% if type == 'reply' %}Reply{% else %}Post{% endif %}" 
             class="btn post-btn post-btn-submit"
-            id="
-                {% if type == 'direct' %}direct-submit-btn
+            id="{% if type == 'direct' %}direct-submit-btn
                 {% elif type == 'modal' %}modal-submit-btn
                 {% elif type == 'reply' %}reply-submid-btn
                 {% endif %}"
