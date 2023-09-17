@@ -1,5 +1,5 @@
 {% for tweet in Tweets %}
-<div class="tweet timeline-segment" onclick="location.href='profile/{{tweet.user.username}}/status/{{tweet.id}}';">
+<div class="tweet timeline-segment" onclick="location.href='{% url 'tweet_detail' tweet.user.username tweet.id %}';">
     <div class="tweet-top">
         {% if tweet.retweeted_by.username|length > 0 %}
             <i class="fa fa-retweet" aria-hidden="true"></i>

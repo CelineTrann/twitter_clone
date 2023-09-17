@@ -6,6 +6,7 @@ from .forms import CustomLoginForm
 urlpatterns = [
     path("", views.home, name="home"),
     path("post/", views.post, name="post"),
+    path("reply/<int:tweet_id>", views.reply, name="reply"),
     path("delete/<int:tweet_id>", views.delete_tweet, name="delete_tweet"),
     path("like/<int:tweet_id>", views.like_tweet, name="like_tweet"),
     path("retweet/<int:tweet_id>", views.retweet_tweet, name="retweet_tweet"),

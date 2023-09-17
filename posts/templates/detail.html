@@ -65,6 +65,9 @@
         </span>
     </div>
 
+    {% include "components/create-tweet-form.html" with content=reply_form.content type="reply" %}
 </div>
+
+{% include 'components/tweet.html' with Tweets=Tweets %}
 
 {% endblock content %}

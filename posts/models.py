@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -37,3 +38,11 @@ class Tweet_Retweets(models.Model):
     tweet = models.ForeignKey(Tweet, on_delete=models.DO_NOTHING)
     curr_user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
+
+class Tweet_Convo(models.Model):
+    conversation_id = models.UUIDField(default=uuid.uuid4, editable=False)
+    tweet = models.ForeignKey(Tweet, on_delete=models.DO_NOTHING, related_name="convo_tweet")
+    reply_to = models.ForeignKey(Tweet, on_delete=models.DO_NOTHING, null=True, blank=True, related_name="reply")
+
+    def __repr__(self):
+        return f"Tweet_Convo(id={self.id}, conversation_id={self.conversation_id}, tweet={self.tweet}, reply_to={self.reply_to})"
