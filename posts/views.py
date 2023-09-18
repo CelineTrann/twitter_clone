@@ -170,15 +170,15 @@ def tweet_detail(request, request_username, tweet_id):
         reply_tweets = [x.tweet for x in current_convo]
 
     # Parent Tweet of Conversation
-    parent = Tweet.objects.get(reply=tweet_id)
-    parent_tweets = [parent]
+    parent_id = tweet_id
+    parent_tweets = []
     while (True):
-        parent_id = parent.id
         if not Tweet.objects.filter(reply=parent_id).exists():
             break
 
         parent = Tweet.objects.get(reply=parent_id)
         parent_tweets.insert(0, parent)
+        parent_id = parent.id
 
     return render(request, "detail.html", {
         "original_tweet": original_tweet, 
