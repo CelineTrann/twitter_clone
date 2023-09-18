@@ -10,6 +10,8 @@
 {% block content %}
 {% include 'components/profile-header.html' with profile=original_tweet.user.profile %}
 
+{% include 'components/tweet.html' with Tweets=parent_tweets %}
+
 <div class="detail-tweet">
     <div class="tweet-header">
         <img 
@@ -71,6 +73,6 @@
     {% include "components/create-tweet-form.html" with content=reply_form.content type="reply" %}
 </div>
 
-{% include 'components/tweet.html' with Tweets=Tweets %}
+{% include 'components/tweet.html' with Tweets=reply_tweets %}
 
 {% endblock content %}

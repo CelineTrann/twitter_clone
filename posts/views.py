@@ -165,10 +165,28 @@ def tweet_detail(request, request_username, tweet_id):
     reply_form = TweetForm(prefix="reply")
 
     current_convo = Tweet_Convo.objects.filter(reply_to__id=tweet_id)
-    tweets = [x.tweet for x in current_convo]
-    # parent = Tweet.objects.filter(convo_tweet=tweet_id)
+    reply_tweets = [x.tweet for x in current_convo]
 
-    return render(request, "detail.html", {"original_tweet": original_tweet, "reply_form": reply_form, "Tweets": tweets, "modal_form": modal_form})
+    # parent_id = Tweet_Convo.objects.get(tweet_id=tweet_id).reply_to_id
+    parent_id = tweet_id
+
+    parent = Tweet.objects.get(reply=tweet_id)
+    parent_tweets = [parent]
+    while (True):
+        parent_id = parent.id
+        if not Tweet.objects.filter(reply=parent_id).exists():
+            break
+
+        parent = Tweet.objects.get(reply=parent_id)
+        parent_tweets.insert(0, parent)
+
+    return render(request, "detail.html", {
+        "original_tweet": original_tweet, 
+        "parent_tweets": parent_tweets,
+        "reply_tweets": reply_tweets, 
+        "reply_form": reply_form,
+        "modal_form": modal_form
+    })
 
 @login_required
 def reply(request, tweet_id):

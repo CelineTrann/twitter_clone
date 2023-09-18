@@ -192,12 +192,12 @@ nav {
 
 .timeline-header {
     padding: 20px;
-    border-bottom: 1px solid var(--inverse-color);
+    border-bottom: 1px solid var(--gray-hover);
 }
 
 .timeline-segment {
-    padding: 10px 15px;
-    border-bottom: 1px solid var(--inverse-color);
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--gray-hover);
 }
 
 /* Modal */
