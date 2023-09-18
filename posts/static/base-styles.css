@@ -216,7 +216,7 @@ nav {
 .post-modal-content {
     background-color: var(--background);
     margin: 5% auto; 
-    padding: 10px;
+    padding: 10px 20px;
     width: 40%; 
     border-radius: 10px;
 }
