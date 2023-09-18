@@ -165,8 +165,9 @@ def tweet_detail(request, request_username, tweet_id):
     reply_form = TweetForm(prefix="reply")
 
     # Child Tweet of Conversation
-    current_convo = Tweet_Convo.objects.filter(reply_to__id=tweet_id)
-    reply_tweets = [x.tweet for x in current_convo]
+    reply_tweets = []
+    if (current_convo := Tweet_Convo.objects.filter(reply_to__id=tweet_id)).exists():
+        reply_tweets = [x.tweet for x in current_convo]
 
     # Parent Tweet of Conversation
     parent = Tweet.objects.get(reply=tweet_id)
