@@ -1,0 +1,28 @@
+.detail-tweet {
+    font-size: 1.05rem;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.tweet-header {
+    display: flex;
+}
+
+.tweet-content {
+    margin-top: 10px;
+}
+
+.detail-tweet .post-date {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-hover);
+}
+
+.detail-tweet .icon {
+    width: auto;
+}
+
+.detail-tweet .post-icons {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-hover);
+}

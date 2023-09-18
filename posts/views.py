@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Tweet, Profile, User, Tweet_Retweets
+from .models import Tweet, Profile, User, Tweet_Retweets, Tweet_Convo
 from .forms import TweetForm, UserProfileForm, CustomUserCreationForm
 
 from django.core.exceptions import PermissionDenied
@@ -44,7 +44,7 @@ def home(request):
                 .filter(Q(user__profile__followed_by=request.user.profile) | Q(user=request.user)) \
                 .order_by("-updated_at") \
                 .distinct())
-    retweet_dates = list(Tweet_Retweets .objects. \
+    retweet_dates = list(Tweet_Retweets.objects. \
                 filter(curr_user__profile__in=request.user.profile.follows.all()) \
                 .order_by("-created_at"))
     items = tweet_join_retweet(tweets, retweet_dates)
@@ -55,14 +55,16 @@ def home(request):
 
 @login_required
 def post(request):
-    if request.method == 'POST':
-        prev_link = request.META.get('HTTP_REFERER', '/')
-        
+    prev_link = request.META.get('HTTP_REFERER', '/')
+
+    if request.method == 'POST':        
         direct_form = TweetForm(request.POST, prefix='direct')
         if direct_form.is_valid():
             direct_tweet = direct_form.save(commit=False)
             direct_tweet.user = request.user
             direct_tweet.save()
+            direct_new_convo = Tweet_Convo.objects.create(tweet=direct_tweet)
+            direct_new_convo.save()
             return redirect(home)
 
         modal_form = TweetForm(request.POST, prefix='modal')
@@ -70,9 +72,11 @@ def post(request):
             modal_tweet = modal_form.save(commit=False)
             modal_tweet.user = request.user
             modal_tweet.save()
+            modal_new_convo = Tweet_Convo.objects.create(tweet=modal_tweet)
+            modal_new_convo.save()
             return redirect(prev_link)
         
-        return redirect(prev_link)
+    return redirect(prev_link)
 
 @login_required
 def delete_tweet(request, tweet_id):
@@ -152,6 +156,55 @@ def follow_unfollow(request):
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required
+def tweet_detail(request, request_username, tweet_id):
+    curr_user = request_username
+    modal_form = TweetForm(prefix="modal")
+
+    original_tweet = Tweet.objects.get(id=tweet_id)
+    reply_form = TweetForm(prefix="reply")
+
+    # Child Tweet of Conversation
+    reply_tweets = []
+    if (current_convo := Tweet_Convo.objects.filter(reply_to__id=tweet_id)).exists():
+        reply_tweets = [x.tweet for x in current_convo]
+
+    # Parent Tweet of Conversation
+    parent_id = tweet_id
+    parent_tweets = []
+    while (True):
+        if not Tweet.objects.filter(reply=parent_id).exists():
+            break
+
+        parent = Tweet.objects.get(reply=parent_id)
+        parent_tweets.insert(0, parent)
+        parent_id = parent.id
+
+    return render(request, "detail.html", {
+        "original_tweet": original_tweet, 
+        "parent_tweets": parent_tweets,
+        "reply_tweets": reply_tweets, 
+        "reply_form": reply_form,
+        "modal_form": modal_form
+    })
+
+@login_required
+def reply(request, tweet_id):
+    prev_link = request.META.get('HTTP_REFERER', '/')
+    if request.method == 'POST':
+        reply_form = TweetForm(request.POST, prefix='reply')
+        if reply_form.is_valid():
+            reply_tweet = reply_form.save(commit=False)
+            reply_tweet.user = request.user
+            reply_tweet.save()
+
+            convo_id = Tweet_Convo.objects.get(tweet_id=tweet_id).conversation_id
+            original_tweet = Tweet.objects.get(id=tweet_id)
+            new_reply = Tweet_Convo.objects.create(conversation_id=convo_id, reply_to=original_tweet, tweet=reply_tweet)
+            new_reply.save()
+
+    return redirect(prev_link)
+
 
 def tweet_join_retweet(tweets, retweets):
     items = []
@@ -166,4 +219,10 @@ def tweet_join_retweet(tweets, retweets):
             items.append(curr_tweet)
             t += 1
 
-    return items + tweets[t:] + retweets[r:].tweet
+    if t < len(tweets):
+        items += tweets[t:]
+
+    if r < len(retweets):
+        items += retweets[r:].tweet
+
+    return items

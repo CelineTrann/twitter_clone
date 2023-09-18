@@ -1,6 +1,10 @@
-<form action="{% url 'post' %}" method="post" class="post-tweet-form">
+<form 
+    action="{% if type == 'reply' %} {% url 'reply' original_tweet.id %} {% else %} {% url 'post' %} {% endif %}" 
+    method="post" 
+    class="post-tweet-form"
+>
     {% csrf_token %}
-    <div class="{% if type == 'direct' %}post-top-no-border{% else %}post-top{% endif %}">
+    <div class="{% if type == 'modal' %}post-top{% else %}post-top-no-border{% endif %}">
         <img 
             src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
             alt="profile picture" 
@@ -9,12 +13,18 @@
         {{ content }}
     </div>
     <div class="post-bottom">
-        <p id="{% if type == 'direct' %}direct-char-count{% else %}modal-char-count{% endif %}"> 0 / 255 characters</p>
+        <p id="{% if type == 'direct' %}direct-char-count 
+            {% elif type == 'modal' %}modal-char-count
+            {% elif type == 'reply' %}reply-char-count
+            {% endif %}"> 0 / 255 characters</p>
         <input 
             type="submit" 
-            value="Post" 
+            value="{% if type == 'reply' %}Reply{% else %}Post{% endif %}" 
             class="btn post-btn post-btn-submit"
-            id="{% if type == 'direct' %}direct-submit-btn{% else %}modal-submit-btn{% endif %}"
+            id="{% if type == 'direct' %}direct-submit-btn
+                {% elif type == 'modal' %}modal-submit-btn
+                {% elif type == 'reply' %}reply-submid-btn
+                {% endif %}"
         />
     </div>
 </form>

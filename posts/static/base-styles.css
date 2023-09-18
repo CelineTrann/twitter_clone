@@ -184,6 +184,7 @@ nav {
 /* Timeline */
 .timeline {
     width: 45%;
+    min-height: 900px;
 
     border-style: none solid;
     border-width: 1px;
@@ -192,12 +193,12 @@ nav {
 
 .timeline-header {
     padding: 20px;
-    border-bottom: 1px solid var(--inverse-color);
+    border-bottom: 1px solid var(--gray-hover);
 }
 
 .timeline-segment {
-    padding: 10px 15px;
-    border-bottom: 1px solid var(--inverse-color);
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--gray-hover);
 }
 
 /* Modal */
@@ -216,7 +217,7 @@ nav {
 .post-modal-content {
     background-color: var(--background);
     margin: 5% auto; 
-    padding: 10px;
+    padding: 10px 20px;
     width: 40%; 
     border-radius: 10px;
 }
