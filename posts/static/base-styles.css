@@ -184,6 +184,7 @@ nav {
 /* Timeline */
 .timeline {
     width: 45%;
+    min-height: 900px;
 
     border-style: none solid;
     border-width: 1px;
