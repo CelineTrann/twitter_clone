@@ -1,4 +1,6 @@
-#id_username, #id_password1, #id_password2 {
+#id_username, #id_email, #id_password1, #id_password2 {
     width: 100%;
     font-size: 1rem;
+    margin: 5px 0;
+    padding: 1px 5px;
 }

@@ -27,6 +27,7 @@ class UserProfileForm(forms.ModelForm):
 
 class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(widget=TextInput(attrs={'placeholder': 'Username'}))
+    email = forms.EmailField(widget=TextInput(attrs={'placeholder': 'Email'}))
     password1 = forms.CharField(widget=PasswordInput(attrs={'placeholder':'Password'}))
     password2 = forms.CharField(widget=PasswordInput(attrs={'placeholder':'Confirm Password'}))
 
