@@ -59,22 +59,10 @@ def post(request):
 
     if request.method == 'POST':        
         direct_form = TweetForm(request.POST, prefix='direct')
-        if direct_form.is_valid():
-            direct_tweet = direct_form.save(commit=False)
-            direct_tweet.user = request.user
-            direct_tweet.save()
-            direct_new_convo = Tweet_Convo.objects.create(tweet=direct_tweet)
-            direct_new_convo.save()
-            return redirect(home)
+        validate_tweet_form(request.user, direct_form)
 
         modal_form = TweetForm(request.POST, prefix='modal')
-        if modal_form.is_valid():
-            modal_tweet = modal_form.save(commit=False)
-            modal_tweet.user = request.user
-            modal_tweet.save()
-            modal_new_convo = Tweet_Convo.objects.create(tweet=modal_tweet)
-            modal_new_convo.save()
-            return redirect(prev_link)
+        validate_tweet_form(request.user, modal_form)
         
     return redirect(prev_link)
 
@@ -205,6 +193,14 @@ def reply(request, tweet_id):
 
     return redirect(prev_link)
 
+
+def validate_tweet_form(curr_user, form, reply=False):
+    if form.is_valid():
+        curr_tweet = form.save(commit=False)
+        curr_tweet.user = curr_user
+        curr_tweet.save()
+        new_convo = Tweet_Convo.objects.create(tweet=curr_tweet)
+        new_convo.save()
 
 def tweet_join_retweet(tweets, retweets):
     items = []
