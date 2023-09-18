@@ -158,7 +158,7 @@ def follow_unfollow(request):
 
 @login_required
 def tweet_detail(request, request_username, tweet_id):
-    curr_user = User.objects.get(username=request_username)
+    curr_user = request_username
     modal_form = TweetForm(prefix="modal")
 
     original_tweet = Tweet.objects.get(id=tweet_id)
