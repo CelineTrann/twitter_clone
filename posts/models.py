@@ -41,8 +41,8 @@ class Tweet_Retweets(models.Model):
 
 class Tweet_Convo(models.Model):
     conversation_id = models.UUIDField(default=uuid.uuid4, editable=False)
-    tweet = models.ForeignKey(Tweet, on_delete=models.DO_NOTHING, related_name="convo_tweet")
-    reply_to = models.ForeignKey(Tweet, on_delete=models.DO_NOTHING, null=True, blank=True, related_name="reply")
+    tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE, related_name="convo_tweet")
+    reply_to = models.ForeignKey(Tweet, on_delete=models.SET_NULL, null=True, blank=True, related_name="reply")
 
     def __repr__(self):
         return f"Tweet_Convo(id={self.id}, conversation_id={self.conversation_id}, tweet={self.tweet}, reply_to={self.reply_to})"

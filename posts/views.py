@@ -164,12 +164,11 @@ def tweet_detail(request, request_username, tweet_id):
     original_tweet = Tweet.objects.get(id=tweet_id)
     reply_form = TweetForm(prefix="reply")
 
+    # Child Tweet of Conversation
     current_convo = Tweet_Convo.objects.filter(reply_to__id=tweet_id)
     reply_tweets = [x.tweet for x in current_convo]
 
-    # parent_id = Tweet_Convo.objects.get(tweet_id=tweet_id).reply_to_id
-    parent_id = tweet_id
-
+    # Parent Tweet of Conversation
     parent = Tweet.objects.get(reply=tweet_id)
     parent_tweets = [parent]
     while (True):
