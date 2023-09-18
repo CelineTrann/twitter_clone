@@ -9,6 +9,8 @@ from django.db.models import Q
 
 from django.http import HttpResponse
 
+
+## ------------------------REGISTRATION VIEWS------------------------
 def registration(request):
     if request.method == 'GET':
         user_form = CustomUserCreationForm()
@@ -16,7 +18,7 @@ def registration(request):
     
     elif request.method == 'POST':
         user_form = CustomUserCreationForm(request.POST)
-        if user_form.is_valid():
+        if user_form.is_valid(): 
             user = user_form.save()
             login(request, user)
             return redirect(profile_creation)
@@ -35,6 +37,8 @@ def profile_creation(request):
         profile_form.save()
         return redirect(home)
 
+
+## ------------------------LOGGED IN VIEWS------------------------
 @login_required
 def home(request):
     if not hasattr(request.user, 'profile'):
@@ -52,7 +56,75 @@ def home(request):
     modal_form = TweetForm(prefix="modal")
     direct_form = TweetForm(prefix="direct")
     return render(request, "home.html", {"Tweets": items, "modal_form": modal_form, "direct_form": direct_form})
+                
+@login_required
+def profile(request, request_username):
+    if not hasattr(request.user, 'profile'):
+        return redirect(profile_creation)
+    
+    modal_form = TweetForm(prefix="modal")
+    profile_info = Profile.objects.get(user__username = request_username)
 
+    tweets = list(Tweet.objects.filter(user__username=request_username).order_by("-updated_at"))
+    retweet_dates = list(Tweet_Retweets.objects.filter(curr_user__username=request_username).order_by("-created_at"))
+    items = tweet_join_retweet(tweets, retweet_dates)
+
+    return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'posts'})
+
+@login_required
+def profile_likes(request, request_username):
+    if not hasattr(request.user, 'profile'):
+        return redirect(profile_creation)
+
+    modal_form = TweetForm(prefix="modal")
+    profile_info = Profile.objects.get(user__username = request_username)
+    items = Tweet.objects.filter(likes__username=request_username).order_by("-tweet_likes__created_at")
+    return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'likes'})
+    
+    
+@login_required
+def follow(request, request_username):
+    curr_profile = Profile.objects.get(user__username = request_username)
+    if request.path == f"/profile/{request_username}/following":
+        following_list = curr_profile.follows.exclude(follows = curr_profile)
+        return render(request, "follow.html", {"profile": curr_profile, "follow_list": following_list, "type": "following"})
+    else: 
+        follower_list = curr_profile.followed_by.exclude(followed_by = curr_profile)
+        return render(request, "follow.html", {"profile": curr_profile, "follow_list": follower_list, "type": "followers"})
+
+@login_required
+def tweet_detail(request, request_username, tweet_id):
+    curr_user = request_username
+    modal_form = TweetForm(prefix="modal")
+
+    original_tweet = Tweet.objects.get(id=tweet_id)
+    reply_form = TweetForm(prefix="reply")
+
+    # Child Tweet of Conversation
+    reply_tweets = []
+    if (current_convo := Tweet_Convo.objects.filter(reply_to__id=tweet_id)).exists():
+        reply_tweets = [x.tweet for x in current_convo]
+
+    # Parent Tweet of Conversation
+    parent_id = tweet_id
+    parent_tweets = []
+    while (True):
+        if not Tweet.objects.filter(reply=parent_id).exists():
+            break
+
+        parent = Tweet.objects.get(reply=parent_id)
+        parent_tweets.insert(0, parent)
+        parent_id = parent.id
+
+    return render(request, "detail.html", {
+        "original_tweet": original_tweet, 
+        "parent_tweets": parent_tweets,
+        "reply_tweets": reply_tweets, 
+        "reply_form": reply_form,
+        "modal_form": modal_form
+    })
+
+## ------------------------LOGGED IN POST VIEWS------------------------ 
 @login_required
 def post(request):
     prev_link = request.META.get('HTTP_REFERER', '/')
@@ -92,89 +164,6 @@ def retweet_tweet(request, tweet_id):
     else: 
         tweet.retweets.add(request.user)
     return redirect(request.META.get('HTTP_REFERER', '/'))
-                
-@login_required
-def profile(request, request_username):
-    if not hasattr(request.user, 'profile'):
-        return redirect(profile_creation)
-    
-    modal_form = TweetForm(prefix="modal")
-    profile_info = Profile.objects.get(user__username = request_username)
-
-    tweets = list(Tweet.objects.filter(user__username=request_username).order_by("-updated_at"))
-    retweet_dates = list(Tweet_Retweets.objects.filter(curr_user__username=request_username).order_by("-created_at"))
-    items = tweet_join_retweet(tweets, retweet_dates)
-
-    return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'posts'})
-
-@login_required
-def profile_likes(request, request_username):
-    if not hasattr(request.user, 'profile'):
-        return redirect(profile_creation)
-
-    modal_form = TweetForm(prefix="modal")
-    profile_info = Profile.objects.get(user__username = request_username)
-    items = Tweet.objects.filter(likes__username=request_username).order_by("-tweet_likes__created_at")
-    return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'likes'})
-    
-    
-@login_required
-def follow(request, request_username):
-    curr_profile = Profile.objects.get(user__username = request_username)
-    if request.path == f"/profile/{request_username}/following":
-        following_list = curr_profile.follows.exclude(follows = curr_profile)
-        return render(request, "follow.html", {"profile": curr_profile, "follow_list": following_list, "type": "following"})
-    else: 
-        follower_list = curr_profile.followed_by.exclude(followed_by = curr_profile)
-        return render(request, "follow.html", {"profile": curr_profile, "follow_list": follower_list, "type": "followers"})
-        
-@login_required
-def follow_unfollow(request):
-    if request.method == 'POST':
-        current_user_profile = Profile.objects.get(user__username = request.user.username)
-        follow_profile_id = request.POST.get("follow")
-        follow_profile = Profile.objects.get(pk=follow_profile_id)
-        
-        if follow_profile not in current_user_profile.follows.all():
-            current_user_profile.follows.add(follow_profile_id)
-        else:
-            current_user_profile.follows.remove(follow_profile_id)
-
-        current_user_profile.save()
-
-    return redirect(request.META.get('HTTP_REFERER', '/'))
-
-@login_required
-def tweet_detail(request, request_username, tweet_id):
-    curr_user = request_username
-    modal_form = TweetForm(prefix="modal")
-
-    original_tweet = Tweet.objects.get(id=tweet_id)
-    reply_form = TweetForm(prefix="reply")
-
-    # Child Tweet of Conversation
-    reply_tweets = []
-    if (current_convo := Tweet_Convo.objects.filter(reply_to__id=tweet_id)).exists():
-        reply_tweets = [x.tweet for x in current_convo]
-
-    # Parent Tweet of Conversation
-    parent_id = tweet_id
-    parent_tweets = []
-    while (True):
-        if not Tweet.objects.filter(reply=parent_id).exists():
-            break
-
-        parent = Tweet.objects.get(reply=parent_id)
-        parent_tweets.insert(0, parent)
-        parent_id = parent.id
-
-    return render(request, "detail.html", {
-        "original_tweet": original_tweet, 
-        "parent_tweets": parent_tweets,
-        "reply_tweets": reply_tweets, 
-        "reply_form": reply_form,
-        "modal_form": modal_form
-    })
 
 @login_required
 def reply(request, tweet_id):
@@ -193,7 +182,24 @@ def reply(request, tweet_id):
 
     return redirect(prev_link)
 
+@login_required
+def follow_unfollow(request):
+    if request.method == 'POST':
+        current_user_profile = Profile.objects.get(user__username = request.user.username)
+        follow_profile_id = request.POST.get("follow")
+        follow_profile = Profile.objects.get(pk=follow_profile_id)
+        
+        if follow_profile not in current_user_profile.follows.all():
+            current_user_profile.follows.add(follow_profile_id)
+        else:
+            current_user_profile.follows.remove(follow_profile_id)
 
+        current_user_profile.save()
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+## ------------------------HELPER FUNCTIONS------------------------
 def validate_tweet_form(curr_user, form, reply=False):
     if form.is_valid():
         curr_tweet = form.save(commit=False)
