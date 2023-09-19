@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
-from .forms import CustomLoginForm
+from .forms import CustomLoginForm, CustomPasswordResetForm, CustomSetPasswordForm
 
 urlpatterns = [
     path("", views.home, name="home"),
@@ -20,6 +20,8 @@ urlpatterns = [
     path("follow/", views.follow_unfollow, name="follow_unfollow"),
 
     path("accounts/login/", auth_views.LoginView.as_view(authentication_form=CustomLoginForm), name='login'),
-    path("account/registration", views.registration, name="registration"),
-    path("account/profile_creation", views.profile_creation, name="profile_creation"),
+    path("accounts/registration", views.registration, name="registration"),
+    path("accounts/profile_creation", views.profile_creation, name="profile_creation"),
+    path("accounts/password_reset/", auth_views.PasswordResetView.as_view(form_class=CustomPasswordResetForm), name='password_reset'),
+    path("accounts/reset/<uidb64>/<token>/", auth_views.PasswordResetConfirmView.as_view(form_class=CustomSetPasswordForm), name='password_reset_confirm'),
 ]

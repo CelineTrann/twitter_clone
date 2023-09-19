@@ -15,7 +15,11 @@
 }
 
 h1 {
-    margin-bottom: 10px;
+    white-space: nowrap;
+}
+
+p {
+    margin: 0 0 10px 0;
 }
 
 body {
@@ -29,6 +33,7 @@ form {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: 5px;
 }
 
 .btn {

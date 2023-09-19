@@ -6,20 +6,16 @@
 {% block title %}Create Account{% endblock title %}
     
 {% block content %}
-<div class="content">
-    <div class="center-content">
-        <h1>Sign Up for Twitter</h1>
-        {% if user_form.errors %}
-        <div class="error">{{ user_form.errors }}</div>
-        {% endif %}
-        <form method="post" action="{% url 'registration' %}">
-            {% csrf_token %}
-            {{ user_form.username }}
-            {{ user_form.email }}
-            {{ user_form.password1 }}
-            {{ user_form.password2 }}
-            <input type="submit" value="Next" class="btn">
-        </form>
-    </div>
-</div>
+<h1>Sign Up for Twitter</h1>
+{% if user_form.errors %}
+<div class="error">{{ user_form.errors }}</div>
+{% endif %}
+<form method="post" action="{% url 'registration' %}">
+    {% csrf_token %}
+    {{ user_form.username }}
+    {{ user_form.email }}
+    {{ user_form.password1 }}
+    {{ user_form.password2 }}
+    <input type="submit" value="Next" class="btn">
+</form>
 {% endblock content %}
