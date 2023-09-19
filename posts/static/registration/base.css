@@ -22,6 +22,11 @@ p {
     margin: 0 0 10px 0;
 }
 
+.subtext {
+    font-size: 0.9rem;
+    color: var(--gray-text);
+}
+
 body {
     font-family: "Segoe UI", Arial, Helvetica, sans-serif;
     height: 100vh;
