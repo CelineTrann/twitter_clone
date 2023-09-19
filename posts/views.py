@@ -74,12 +74,10 @@ def profile(request, request_username):
 @login_required
 def edit_profile(request):
     modal_form = TweetForm(prefix="modal")
-
-    if request.method == 'GET':
-        profile_form = UserProfileForm(instance=request.user.profile)
+    profile_form = UserProfileForm(request.POST or None, request.FILES or None, instance=request.user.profile)
     
-    elif request.method == 'POST':
-        profile_form = UserProfileForm(request.POST, instance=request.user.profile)
+    if request.method == 'POST':
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
         profile_form.save()
 
     return render(request, "edit_profile.html", {"modal_form": modal_form, "profile_form": profile_form})

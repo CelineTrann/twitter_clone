@@ -26,7 +26,7 @@ class CustomSetPasswordForm(SetPasswordForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['display_name', 'bio']
+        fields = ['display_name', 'bio', 'profile_picture', 'cover_picture']
         widgets = {
             'display_name': forms.TextInput(attrs={'placeholder': 'Display Name'}),
             'bio': forms.Textarea(attrs={'rows': 10, 'placeholder': 'Tell us about yourself'}),
