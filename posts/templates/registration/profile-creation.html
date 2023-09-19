@@ -6,15 +6,12 @@
 {% block title %}Create Profile{% endblock title %}
 
 {% block content %}
-<div class="content">
-    <div class="center-content">
-        <h1>Finish Signing Up</h1>
-        <form method="post" action="{% url 'profile_creation' %}">
-            {% csrf_token %}
-            {{ profile_form.display_name }}
-            {{ profile_form.bio }}
-            <input type="submit" value="Sign Up" class="btn profile-creation-btn">
-        </form>
-    </div>    
-</div>
+<h1>Finish Signing Up</h1>
+<form method="post" action="{% url 'profile_creation' %}">
+    {% csrf_token %}
+    {{ profile_form.display_name }}
+    {{ profile_form.bio }}
+    <input type="submit" value="Sign Up" class="btn profile-creation-btn">
+</form>
+
 {% endblock content %}
