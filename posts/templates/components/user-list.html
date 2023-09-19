@@ -1,6 +1,6 @@
 {% for follow in follow_list %}
     <a href="{% url 'profile' follow.user.username %}" class="user-detail-container timeline-segment">
-        <img class="profile-pic"></img>
+        {% include "components/profile-picture.html" with profile=follow.user.profile %}
 
         <div class="user-detail-text">
             <p class="underline-hover"><b>{{ follow.display_name }}</b></p>

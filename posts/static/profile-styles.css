@@ -9,7 +9,9 @@
 /* Profile Images */
 .profile-banner {
     height: 160%;
-    background-image: url(https://www.schemecolor.com/wallpaper?i=4334&desktop);
+    width: 100%;
+    background-color: var(--twitter-blue);
+    object-fit: cover;
 }
 
 .profile-pic-pos {

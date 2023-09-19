@@ -1,0 +1,9 @@
+{% if profile.profile_picture %}
+    <img 
+        src="{{ profile.profile_picture.url }}" 
+        alt="" 
+        class="profile-pic {{ additional_classes }}"
+    ></img>  
+{% else %}
+    <div class="profile-pic {{ additional_classes }}"></div>
+{% endif %}
