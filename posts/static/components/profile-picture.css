@@ -3,6 +3,6 @@
     height: 3rem;
     width: 3rem;
     margin-right: 15px;
-    background-color: var(--gray-text);
+    background-color: var(--background);
     object-fit: cover;
 }

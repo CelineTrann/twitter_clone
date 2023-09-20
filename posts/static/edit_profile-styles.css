@@ -52,7 +52,6 @@
 .profile-banner {
     height: 30%;
     width: 100%;
-    background-color: var(--twitter-blue);
     object-fit: cover;
 }
 

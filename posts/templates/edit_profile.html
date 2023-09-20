@@ -20,6 +20,7 @@
         {% csrf_token %}
             <img 
                 src="{% if request.user.profile.cover_picture %}{{ request.user.profile.cover_picture.url }}{% endif %}" 
+                style="{% if not request.user.profile.cover_picture %}background-color: var(--twitter-blue);{% endif %}"
                 alt="" 
                 class="profile-banner darken-img" 
                 id="cover-banner"

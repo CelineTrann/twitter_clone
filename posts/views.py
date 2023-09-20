@@ -78,7 +78,8 @@ def edit_profile(request):
     
     if request.method == 'POST':
         profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
-        profile_form.save()
+        if profile_form.is_valid():
+            profile_form.save()
 
     return render(request, "edit_profile.html", {"modal_form": modal_form, "profile_form": profile_form})
 

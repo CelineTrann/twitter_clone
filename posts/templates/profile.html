@@ -18,11 +18,13 @@
 {% block content %}
 {% include 'components/profile-header.html' %}
 <div class="profile-content">
-    {% if profile.cover_picture %}
-        <img src="{{ profile.cover_picture.url }}" alt="" class="profile-banner" />
-    {% else %}
-        <div class="profile-banner"></div>
-    {% endif %}
+    <img 
+        src="{% if profile.cover_picture %}{{ profile.cover_picture.url }}{% endif %}" 
+        style="{% if not profile.cover_picture %}background-color: var(--twitter-blue);{% endif %}"
+        alt="" 
+        class="profile-banner" 
+        id="cover-banner"
+    />
     
     <div class="profile-pic-pos">
         {% include "components/profile-picture.html" with additional_classes='overlap-banner' %}
