@@ -2,6 +2,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="/static/edit_profile-styles.css" />
+    <script src="/static/edit_profile.js"></script>
 {% endblock head %}
 
 {% block title %}Edit Profile{% endblock title %}
@@ -17,44 +18,26 @@
         class="edit-profile-form"
     >
         {% csrf_token %}
-            {% comment %} <div class="add-img cover-btn">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-            </div> {% endcomment %}
-
-            {% comment %} <div class="add-img profile-btn">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-            </div> {% endcomment %}
-
-            {% if request.user.profile.cover_picture %}
-                <img src="{{ request.user.profile.cover_picture.url }}" alt="" class="profile-banner darken-img" />
-            {% else %}
-                <div class="profile-banner darken-img"></div>
-            {% endif %}
+            <img 
+                src="{% if request.user.profile.cover_picture %}{{ request.user.profile.cover_picture.url }}{% endif %}" 
+                alt="" 
+                class="profile-banner darken-img" 
+                id="cover-banner"
+            />
             
             <div class="profile-pic-pos">
                 {% include "components/profile-picture.html" with profile=request.user.profile additional_classes='overlap-banner darken-img' %}
             </div>
 
-            <div class="cover-btn">
+            <div class="cover-btn" id="add-cover-pic">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
             </div> 
-            <input 
-                type="file" 
-                name="{{ cover_picture.profile_picture.name }}" 
-                accept="image/*" 
-                id="{{ cover_picture.profile_picture.id_for_label }}"
-                style="display: none;"   
-            />
+            {{ profile_form.cover_picture }}
 
-            <div class="profile-btn">
+            <div class="profile-btn" id="add-profile-pic">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
             </div> 
-            <input 
-                type="file" 
-                name="{{ profile_form.profile_picture.name }}" 
-                accept="image/*" id="{{ profile_form.profile_picture.id_for_label }}"
-                style="display: none;"   
-            />
+            {{ profile_form.profile_picture }}
         
         {{ profile_form.display_name }}
         {{ profile_form.bio }}
