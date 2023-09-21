@@ -33,7 +33,7 @@ def profile_creation(request):
     
     elif request.method == 'POST':
         Profile.objects.create(user=request.user)
-        profile_form = UserProfileForm(request.POST, instance=request.user.profile)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
         profile_form.save()
         return redirect(home)
 
