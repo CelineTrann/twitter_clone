@@ -12,7 +12,11 @@
 
 {% block content %}
 <h1>Finish Signing Up</h1>
-<form method="post" action="{% url 'profile_creation' %}">
+<form 
+    method="post" 
+    action="{% url 'profile_creation' %}"
+    enctype="multipart/form-data" 
+>
     {% csrf_token %}
     <img 
         src="{% if request.user.profile.cover_picture %}{{ request.user.profile.cover_picture.url }}{% endif %}" 
