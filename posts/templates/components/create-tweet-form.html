@@ -5,11 +5,7 @@
 >
     {% csrf_token %}
     <div class="{% if type == 'modal' %}post-top{% else %}post-top-no-border{% endif %}">
-        <img 
-            src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
-            alt="profile picture" 
-            class="profile-pic"
-        ></img> 
+        {% include "components/profile-picture.html" with profile=request.user.profile %}
         {{ content }}
     </div>
     <div class="post-bottom">

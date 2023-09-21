@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/components/profile-picture.css" />
+    <link rel="stylesheet" href="/static/edit_profile-styles.css" />
+
+    <script src="/static/edit_profile.js"></script>
+{% endblock head %}
+
+{% block title %}Edit Profile{% endblock title %}
+
+{% block content %}
+
+<div class="edit-profile-content">
+    <h1>Edit profile</h1>
+    <form 
+        method="post" 
+        action="{% url 'edit_profile' %}" 
+        enctype="multipart/form-data" 
+        class="edit-profile-form"
+    >
+        {% csrf_token %}
+        <img 
+            src="{% if request.user.profile.cover_picture %}{{ request.user.profile.cover_picture.url }}{% endif %}" 
+            style="{% if not request.user.profile.cover_picture %}background-color: var(--twitter-blue);{% endif %}"
+            alt="" 
+            class="profile-banner darken-img" 
+            id="cover-banner"
+        />
+        
+        <div class="profile-pic-pos">
+            {% include "components/profile-picture.html" with profile=request.user.profile additional_classes='overlap-banner darken-img' %}
+        </div>
+
+        <div class="cover-btn" id="add-cover-pic">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </div> 
+        {{ profile_form.cover_picture }}
+
+        <div class="profile-btn" id="add-profile-pic">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </div> 
+        {{ profile_form.profile_picture }}
+        
+        {{ profile_form.display_name }}
+        {{ profile_form.bio }}
+        <input type="submit" value="Save" class="btn post-btn">
+    </form>
+</div>
+
+
+{% endblock content %}

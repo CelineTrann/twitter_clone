@@ -8,6 +8,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     display_name = models.CharField(max_length=60)
     bio = models.TextField(max_length=255, blank=True)
+    profile_picture = models.ImageField(null=True, blank=True, upload_to="profile_pictures")
+    cover_picture = models.ImageField(null=True, blank=True, upload_to="cover_pictures")
     follows = models.ManyToManyField(
         "self",
         related_name="followed_by",

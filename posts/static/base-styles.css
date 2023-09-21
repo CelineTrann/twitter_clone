@@ -118,13 +118,6 @@ nav {
     background-color: var(--gray-hover);
 }
 
-.profile-pic {
-    border-radius: 50%;
-    height: 3rem;
-    width: 3rem;
-    margin-right: 15px;
-}
-
 .name-container {
     vertical-align: center;
 }

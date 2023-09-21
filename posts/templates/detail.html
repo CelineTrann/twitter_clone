@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="/static/detail-styles.css" />
     <link rel="stylesheet" href="/static/components/tweet-styles.css" />
     <link rel="stylesheet" href="/static/components/profile-header-styles.css" />
+    <link rel="stylesheet" href="/static/components/profile-picture.css" />
 
     <script src="/static/components/tweet.js"></script>
 {% endblock head %}
@@ -14,11 +15,8 @@
 
 <div class="detail-tweet">
     <div class="tweet-header">
-        <img 
-            src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
-            alt="profile picture" 
-            class="profile-pic"
-        ></img> 
+        
+        {% include "components/profile-picture.html" with profile=original_tweet.user.profile %}
 
         <div class="header">
             <a href="{% url 'profile' original_tweet.user.username %}"><b>{{ original_tweet.user.profile.display_name }}</b></a>

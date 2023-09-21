@@ -33,7 +33,7 @@ def profile_creation(request):
     
     elif request.method == 'POST':
         Profile.objects.create(user=request.user)
-        profile_form = UserProfileForm(request.POST, instance=request.user.profile)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
         profile_form.save()
         return redirect(home)
 
@@ -70,6 +70,18 @@ def profile(request, request_username):
     items = tweet_join_retweet(tweets, retweet_dates)
 
     return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'posts'})
+
+@login_required
+def edit_profile(request):
+    modal_form = TweetForm(prefix="modal")
+    profile_form = UserProfileForm(request.POST or None, request.FILES or None, instance=request.user.profile)
+    
+    if request.method == 'POST':
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if profile_form.is_valid():
+            profile_form.save()
+
+    return render(request, "edit_profile.html", {"modal_form": modal_form, "profile_form": profile_form})
 
 @login_required
 def profile_likes(request, request_username):

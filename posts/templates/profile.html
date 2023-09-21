@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <link rel="stylesheet" href="/static/profile-styles.css" />
     <link rel="stylesheet" href="/static/components/tweet-styles.css" /> 
     <link rel="stylesheet" href="/static/components/profile-header-styles.css" />
     <link rel="stylesheet" href="/static/components/options-container.css" />
+    <link rel="stylesheet" href="/static/components/profile-picture.css" />
+    <link rel="stylesheet" href="/static/profile-styles.css" />
     
     {% comment %} follow button {% endcomment %}
     <link rel="stylesheet" href="/static/follow-styles.css" /> 
@@ -17,16 +18,19 @@
 {% block content %}
 {% include 'components/profile-header.html' %}
 <div class="profile-content">
-    <div class="profile-banner"></div>
+    <img 
+        src="{% if profile.cover_picture %}{{ profile.cover_picture.url }}{% endif %}" 
+        style="{% if not profile.cover_picture %}background-color: var(--twitter-blue);{% endif %}"
+        alt="" 
+        class="profile-banner" 
+        id="cover-banner"
+    />
+    
     <div class="profile-pic-pos">
-        <img 
-            src="https://png.pngtree.com/thumb_back/fh260/background/20210207/pngtree-gray-background-pure-color-simple-image_557025.jpg" 
-            alt="profile picture" 
-            class="profile-pic overlap-banner"
-        ></img> 
+        {% include "components/profile-picture.html" with additional_classes='overlap-banner' %}
         <div class="edit-profile-container">
             {% if profile == request.user.profile %}
-                <div class="edit-profile-btn btn"><b>Edit Profile</b></div>
+                <a href="{% url 'edit_profile' %}" class="hover-no-underline"><div class="edit-profile-btn btn"><b>Edit Profile</b></div></a>
             {% else %}
                 {% include 'components/follow-btn.html' with follow=profile %}
             {% endif %}

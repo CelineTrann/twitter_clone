@@ -24,4 +24,6 @@ urlpatterns = [
     path("accounts/profile_creation", views.profile_creation, name="profile_creation"),
     path("accounts/password_reset/", auth_views.PasswordResetView.as_view(form_class=CustomPasswordResetForm), name='password_reset'),
     path("accounts/reset/<uidb64>/<token>/", auth_views.PasswordResetConfirmView.as_view(form_class=CustomSetPasswordForm), name='password_reset_confirm'),
+
+    path("settings/profile", views.edit_profile, name="edit_profile"),
 ]
