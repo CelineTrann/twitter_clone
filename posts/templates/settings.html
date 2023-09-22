@@ -25,7 +25,7 @@
     <i class="fa fa-caret-down rotate-0" aria-hidden="true"></i>
 </div>
 <div class="timeline-segment panel">
-    <form action="" method="post">
+    <form action="{% url 'change_password' %}" method="post">
         {% csrf_token %}
         {{ password_change_form.old_password }}
         {{ password_change_form.new_password1 }}

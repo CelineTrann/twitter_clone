@@ -138,16 +138,24 @@ def tweet_detail(request, request_username, tweet_id):
         "modal_form": modal_form
     })
 
+@login_required
 def settings(request):
     change_password_form = CustomPasswordChangeForm(user=request.user)
-    
+    return render(request, "settings.html", { 'password_change_form': change_password_form})
+
+@login_required
+def change_password(request):
     if request.method == 'POST':
         change_password_form = CustomPasswordChangeForm(user=request.user, data=request.POST)
         if change_password_form.is_valid():
             change_password_form.save()
+            update_session_auth_hash(request, change_password_form.user)
             messages.success(request, 'Password Changed')
+        else:
+            messages.error(request, "Something went wrong")
 
-    return render(request, "settings.html", { 'password_change_form': change_password_form})
+    return render(request, "settings.html", { 'password_change_form': CustomPasswordChangeForm(user=request.user)})
+
 
 ## ------------------------LOGGED IN POST VIEWS------------------------ 
 @login_required
