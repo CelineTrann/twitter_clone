@@ -13,6 +13,7 @@ urlpatterns = [
 
     path("profile/<str:request_username>", views.profile, name="profile"),
     path("profile/<str:request_username>/likes", views.profile_likes, name="profile_likes"),
+    path("profile/<str:request_username>/replies", views.profile_replies, name="profile_replies"),
     path("profile/<str:request_username>/status/<int:tweet_id>", views.tweet_detail, name="tweet_detail"),
     
     path("profile/<str:request_username>/following", views.follow, name="following"),

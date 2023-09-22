@@ -82,11 +82,34 @@ def profile(request, request_username):
     modal_form = TweetForm(prefix="modal")
     profile_info = Profile.objects.get(user__username = request_username)
 
-    tweets = list(Tweet.objects.filter(user__username=request_username).order_by("-updated_at"))
+    exclude_replies = Tweet_Convo.objects.filter(tweet__user__username=request_username, reply_to__isnull=False)
+    tweets = list(Tweet.objects.filter(user__username=request_username).exclude(convo_tweet__in=exclude_replies).order_by("-updated_at"))
     retweet_dates = list(Tweet_Retweets.objects.filter(curr_user__username=request_username).order_by("-created_at"))
     items = tweet_join_retweet(tweets, retweet_dates)
 
     return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'posts'})
+
+@login_required
+def profile_likes(request, request_username):
+    if not hasattr(request.user, 'profile'):
+        return redirect(profile_creation)
+
+    modal_form = TweetForm(prefix="modal")
+    profile_info = Profile.objects.get(user__username = request_username)
+    items = Tweet.objects.filter(likes__username=request_username).order_by("-tweet_likes__created_at")
+    return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'likes'})
+
+@login_required
+def profile_replies(request, request_username):
+    if not hasattr(request.user, 'profile'):
+        return redirect(profile_creation)
+
+    replies = Tweet_Convo.objects.filter(tweet__user__username=request_username, reply_to__isnull=False)
+    items = Tweet.objects.filter(convo_tweet__in=replies).order_by("-updated_at")
+
+    modal_form = TweetForm(prefix="modal")
+    profile_info = Profile.objects.get(user__username = request_username)
+    return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'replies'})
 
 @login_required
 def edit_profile(request):
@@ -100,17 +123,6 @@ def edit_profile(request):
             messages.success(request, "Profile Updated")
 
     return render(request, "edit_profile.html", {"modal_form": modal_form, "profile_form": profile_form})
-
-@login_required
-def profile_likes(request, request_username):
-    if not hasattr(request.user, 'profile'):
-        return redirect(profile_creation)
-
-    modal_form = TweetForm(prefix="modal")
-    profile_info = Profile.objects.get(user__username = request_username)
-    items = Tweet.objects.filter(likes__username=request_username).order_by("-tweet_likes__created_at")
-    return render(request, "profile.html", {"modal_form": modal_form, "profile": profile_info, 'Tweets': items, "type": 'likes'})
-    
     
 @login_required
 def follow(request, request_username):

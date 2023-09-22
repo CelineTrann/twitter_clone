@@ -59,6 +59,11 @@
             Posts
         </div>
     </a>
+    <a href="{% url 'profile_replies' profile.user.username %}" class="option-btn">
+        <div class="option {% if type == 'replies' %}current-option{% endif %} ">
+            Replies
+        </div>
+    </a>
     <a href="{% url 'profile_likes' profile.user.username %}" class="option-btn">
         <div class="option {% if type == 'likes' %}current-option{% endif %}">
             Likes
