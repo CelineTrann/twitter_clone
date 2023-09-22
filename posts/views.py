@@ -107,6 +107,11 @@ def follow(request, request_username):
         return render(request, "follow.html", {"profile": curr_profile, "follow_list": follower_list, "type": "followers"})
 
 @login_required
+def search(request, type):
+    return render(request, 'search.html', {"type": type})
+
+
+@login_required
 def tweet_detail(request, request_username, tweet_id):
     curr_user = request_username
     modal_form = TweetForm(prefix="modal")
