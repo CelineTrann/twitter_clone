@@ -30,7 +30,8 @@ Implemented using: Django, HTML, CSS, JQuery
 
 ### Profile
 - You can see more information about a user on their profile (username, display name, bio, date they joined)
-- You can see all the tweets they made or retweeted on the Posts tab
+- You can see all the original tweets they made or retweeted on the Posts tab
+- You can see all the reply tweets they made on the Replies tab
 - You can see all the tweets they liked on the Likes tab
 - You can see who they follow and their followers by clicking the Following or Followers link respectively
 - You can follow/unfollow them
@@ -42,7 +43,6 @@ Implemented using: Django, HTML, CSS, JQuery
 ## Planned Features
 - Dark Mode
 - UI responsiveness for mobile devices
-- Separate reply tab on Profile Page
 
 ## Set Up
 1. Clone the git repository
