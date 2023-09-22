@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block head %}
     <link rel="stylesheet" href="/static/components/options-container.css" />
+    <link rel="stylesheet" href="/static/search.css" />
 {% endblock head %}
 
 {% block title %}Search{% endblock title %}
@@ -20,6 +21,14 @@
             Tweets
         </div>
     </a>
+</div>
+<div class="search-bar">
+    <form action="{% url 'search' type %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="search" id="search-bar" class="search-bar-input" placeholder="Search {{ type }}">
+        <input type="submit" hidden />
+    </form>
+    <i class="fa fa-search" aria-hidden="true"></i>
 </div>
 
 {% endblock content %}

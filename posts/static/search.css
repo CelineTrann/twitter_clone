@@ -1,0 +1,28 @@
+.search-bar {
+    margin: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--inverse-color);
+    border-radius: 400px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+}
+
+.search-bar, .search-bar-input {
+    font-size: 1.2rem;
+}
+
+.search-bar form {
+    flex-grow: 1;
+}
+
+.search-bar-input {
+    width: 100%;
+    border: none;
+}
+
+.search-bar-input:focus {
+    outline: none;
+}

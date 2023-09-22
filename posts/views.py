@@ -108,6 +108,13 @@ def follow(request, request_username):
 
 @login_required
 def search(request, type):
+    if request.method == 'POST':
+        query = request.POST['search']
+        if type == 'Users':
+            pass
+        elif type == 'Tweets':
+            pass
+
     return render(request, 'search.html', {"type": type})
 
 
