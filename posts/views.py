@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Tweet, Profile, User, Tweet_Retweets, Tweet_Convo
-from .forms import TweetForm, UserProfileForm, CustomUserCreationForm
+from .forms import TweetForm, UserProfileForm, CustomUserCreationForm, CustomPasswordChangeForm, ChangeUsernameForm
 
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login
+from django.contrib.auth import login, update_session_auth_hash
 from django.contrib import messages
 from django.db.models import Q
 
@@ -81,6 +81,7 @@ def edit_profile(request):
         profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if profile_form.is_valid():
             profile_form.save()
+            messages.success(request, "Profile Updated")
 
     return render(request, "edit_profile.html", {"modal_form": modal_form, "profile_form": profile_form})
 
@@ -136,6 +137,13 @@ def tweet_detail(request, request_username, tweet_id):
         "reply_form": reply_form,
         "modal_form": modal_form
     })
+
+@login_required
+def settings(request):
+    change_password_form = CustomPasswordChangeForm(user=request.user)
+    change_username_form = ChangeUsernameForm(initial={"username": request.user.username}, instance=request.user)
+    
+    return render(request, "settings.html", { 'username_change_form': change_username_form, 'password_change_form': change_password_form})
 
 ## ------------------------LOGGED IN POST VIEWS------------------------ 
 @login_required
@@ -212,6 +220,32 @@ def follow_unfollow(request):
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        change_password_form = CustomPasswordChangeForm(user=request.user, data=request.POST)
+        if change_password_form.is_valid():
+            change_password_form.save()
+            update_session_auth_hash(request, change_password_form.user)
+            messages.success(request, 'Password Changed')
+        else:
+            messages.error(request, "Something went wrong")
+
+    return redirect(settings)
+
+@login_required
+def change_username(request):
+    if request.method == 'POST':
+        change_username_form = ChangeUsernameForm(request.POST, instance=request.user)
+        if change_username_form.is_valid():
+            change_username_form.save()
+            messages.success(request, 'Username Changed')
+        else:
+            print(change_username_form.errors.as_data())
+            messages.error(request, "Username not valid")
+
+    return redirect(settings)
+
 
 ## ------------------------HELPER FUNCTIONS------------------------
 def validate_tweet_form(request, curr_user, form, reply=False):
@@ -222,6 +256,8 @@ def validate_tweet_form(request, curr_user, form, reply=False):
         new_convo = Tweet_Convo.objects.create(tweet=curr_tweet)
         new_convo.save()
         messages.success(request, "Tweet posted")
+    elif form.has_changed():
+        messages.error(request, "Something went wrong")
 
 def tweet_join_retweet(tweets, retweets):
     items = []

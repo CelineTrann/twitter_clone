@@ -1,7 +1,7 @@
 from django import forms
 from .models import Tweet, User, Profile
 
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordResetForm, SetPasswordForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from django.forms.widgets import PasswordInput, TextInput
 
 class TweetForm(forms.ModelForm):
@@ -44,4 +44,17 @@ class CustomUserCreationForm(UserCreationForm):
         widgets = {
             'username': forms.TextInput(attrs={'placeholder': 'Username'}),
             'email': forms.TextInput(attrs={'placeholder': 'Email'}),
+        }
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(widget=PasswordInput(attrs={'placeholder':'Current Password'}))
+    new_password1 = forms.CharField(widget=PasswordInput(attrs={'placeholder':'New Password'}))
+    new_password2 = forms.CharField(widget=PasswordInput(attrs={'placeholder':'Confirm Password'}))
+
+class ChangeUsernameForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', )
+        widgets = {
+            'username': forms.TextInput(attrs={'placeholder': 'Username'}),
         }

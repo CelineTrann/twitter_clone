@@ -1,0 +1,44 @@
+.settings-accordian {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    transition: background-color 0.25s;
+}
+
+.settings-accordian:hover {
+    background-color: var(--gray-hover);
+}
+
+.panel {
+    display: none;
+    overflow: hidden;
+}
+
+.panel > form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.settings-btn {
+    width: 15%;
+    align-self: end;
+}
+
+input[type=password], input[type=text] {
+    padding: 5px;
+}
+
+.active-accordian {
+    border-bottom: none;
+}
+
+.rotate-180 {
+    transform: rotate(-180deg);
+    transition: .3s;
+}
+.rotate-0 {
+    transform: rotate(0deg);
+    transition: .3s;
+}
