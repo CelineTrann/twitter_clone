@@ -104,8 +104,8 @@ def profile_replies(request, request_username):
     if not hasattr(request.user, 'profile'):
         return redirect(profile_creation)
 
-    replies = Tweet_Convo.objects.filter(tweet__user__username=request_username, reply_to__isnull=False).order_by("tweet__created_at")
-    items = [x.tweet for x in replies]
+    replies = Tweet_Convo.objects.filter(tweet__user__username=request_username, reply_to__isnull=False)
+    items = Tweet.objects.filter(convo_tweet__in=replies).order_by("-updated_at")
 
     modal_form = TweetForm(prefix="modal")
     profile_info = Profile.objects.get(user__username = request_username)
