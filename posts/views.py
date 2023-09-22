@@ -137,6 +137,9 @@ def tweet_detail(request, request_username, tweet_id):
         "modal_form": modal_form
     })
 
+def settings(request):
+    return render(request, "settings.html")
+
 ## ------------------------LOGGED IN POST VIEWS------------------------ 
 @login_required
 def post(request):

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="/static/settings.css" />
+    <script src="/static/settings.js"></script>
+{% endblock head %}
+
+
+{% block title %}Account Settings{% endblock title %}
+
+{% block content %}
+<div class="timeline-header">
+    <h1>Home</h1>
+</div>
+<div class="timeline-segment settings-accordian">
+    <p>Change Username</p>
+    <i class="fa fa-caret-down rotate-0" aria-hidden="true"></i>
+</div>
+<div class="timeline-segment panel">
+    This is the panel
+</div>
+
+
+<div class="timeline-segment settings-accordian">
+    <p>Change Password</p>
+    <i class="fa fa-caret-down rotate-0" aria-hidden="true"></i>
+</div>
+<div class="timeline-segment panel">
+    This is the panel
+</div>
+{% endblock content %}
