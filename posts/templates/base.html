@@ -58,7 +58,9 @@
     </nav>
     <section class="timeline">
         {% block content %}{% endblock content %}
-        {% include "components/message.html" %}
+        {% for message in messages %}
+            {% include "components/message.html" with message=message %}
+        {% endfor %}
     </section>
 </body>
 </html>

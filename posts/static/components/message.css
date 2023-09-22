@@ -9,7 +9,7 @@
     left: calc(50% - 1rem);
     bottom: 0;
 
-    animation: fadeinout 4s ease-in-out forwards;
+    animation: fadeinout 2s ease-in-out forwards;
     opacity: 0;
 }
 

@@ -5,6 +5,7 @@ from .forms import TweetForm, UserProfileForm, CustomUserCreationForm
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
+from django.contrib import messages
 from django.db.models import Q
 
 from django.http import HttpResponse
@@ -143,10 +144,10 @@ def post(request):
 
     if request.method == 'POST':        
         direct_form = TweetForm(request.POST, prefix='direct')
-        validate_tweet_form(request.user, direct_form)
+        validate_tweet_form(request, request.user, direct_form)
 
         modal_form = TweetForm(request.POST, prefix='modal')
-        validate_tweet_form(request.user, modal_form)
+        validate_tweet_form(request, request.user, modal_form)
         
     return redirect(prev_link)
 
@@ -154,6 +155,7 @@ def post(request):
 def delete_tweet(request, tweet_id):
     try:
         Tweet.objects.get(id=tweet_id, user=request.user).delete()
+        messages.success(request, "Tweet deleted")
     except Tweet.DoesNotExist:
         raise PermissionDenied("User can't delete this tweet.")
     
@@ -212,13 +214,14 @@ def follow_unfollow(request):
 
 
 ## ------------------------HELPER FUNCTIONS------------------------
-def validate_tweet_form(curr_user, form, reply=False):
+def validate_tweet_form(request, curr_user, form, reply=False):
     if form.is_valid():
         curr_tweet = form.save(commit=False)
         curr_tweet.user = curr_user
         curr_tweet.save()
         new_convo = Tweet_Convo.objects.create(tweet=curr_tweet)
         new_convo.save()
+        messages.success(request, "Tweet posted")
 
 def tweet_join_retweet(tweets, retweets):
     items = []
