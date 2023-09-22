@@ -2,10 +2,13 @@
 {% block head %}
     <link rel="stylesheet" href="/static/components/options-container.css" />
     <link rel="stylesheet" href="/static/components/profile-picture.css" />
+    <link rel="stylesheet" href="/static/components/tweet-styles.css" />
+
     <link rel="stylesheet" href="/static/follow-styles.css" />
     <link rel="stylesheet" href="/static/search.css" />
 
     <script src="/static/follow.js"></script>
+    <script src="/static/components/tweet.js"></script>
 {% endblock head %}
 
 {% block title %}Search{% endblock title %}
@@ -37,7 +40,9 @@
 </div>
 
 {% if type == 'Users' %}
-{% include "components/user-list.html" with follow_list=result %}
+    {% include "components/user-list.html" with follow_list=result %}
+{% elif type == 'Tweets' %}
+    {% include 'components/tweet.html' with Tweets=result %}
 {% endif %}
 
 {% endblock content %}

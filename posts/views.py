@@ -57,6 +57,22 @@ def home(request):
     modal_form = TweetForm(prefix="modal")
     direct_form = TweetForm(prefix="direct")
     return render(request, "home.html", {"Tweets": items, "modal_form": modal_form, "direct_form": direct_form})
+
+@login_required
+def search(request, type):
+    result = []
+    if request.method == 'POST':
+        query = request.POST['search']
+        if type == 'Users':
+            result = Profile.objects.filter(Q(user__username__icontains=query) | Q(display_name__icontains=query))[:20]
+        elif type == 'Tweets':
+            result = Tweet.objects.filter(content__icontains=query)[:20]
+
+        if len(result) == 0:
+            messages.info(request, f"No {type} Found")
+
+    modal_form = TweetForm(prefix="modal")
+    return render(request, 'search.html', {"modal_form": modal_form, "type": type, 'result': result})
                 
 @login_required
 def profile(request, request_username):
@@ -105,19 +121,6 @@ def follow(request, request_username):
     else: 
         follower_list = curr_profile.followed_by.exclude(followed_by = curr_profile)
         return render(request, "follow.html", {"profile": curr_profile, "follow_list": follower_list, "type": "followers"})
-
-@login_required
-def search(request, type):
-    result = []
-    if request.method == 'POST':
-        query = request.POST['search']
-        if type == 'Users':
-            result = Profile.objects.filter(Q(user__username__icontains=query) | Q(display_name__icontains=query))
-        elif type == 'Tweets':
-            pass
-
-    return render(request, 'search.html', {"type": type, 'result': result})
-
 
 @login_required
 def tweet_detail(request, request_username, tweet_id):
