@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'base-styles.css' %}" />
     <link rel="stylesheet" href="/static/components/create-tweet-form-styles.css">
     <link rel="stylesheet" href="/static/components/profile-picture.css" />
+    <link rel="stylesheet" href="/static/components/message.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="/static/base.js"></script>
@@ -57,6 +58,7 @@
     </nav>
     <section class="timeline">
         {% block content %}{% endblock content %}
+        {% include "components/message.html" %}
     </section>
 </body>
 </html>
