@@ -19,9 +19,14 @@ Implemented using: Django, HTML, CSS, JQuery
 - You can reply and see the full tweet conversation by clicking on the tweet
 - You can post tweets by clicking the Post button on the left, or at the top of the Home Page
 - You can delete your own tweets by clicking on the ellipse
+- Message will pop up at the bottom of the page when a tweet has been successfully posted or deleted
 
 ### Home Page
 - Your homepage consists of all posts created or retweeted by you and those you follow
+
+### Search
+- Users can search for other users by their username or display name
+- Users can serach for tweets based on the tweet contents
 
 ### Profile
 - You can see more information about a user on their profile (username, display name, bio, date they joined)
@@ -31,8 +36,10 @@ Implemented using: Django, HTML, CSS, JQuery
 - You can follow/unfollow them
 - If the profile is yours, you can edit your own profile from this page
 
+### Settings
+- Users can change their username and password 
+
 ## Planned Features
-- Page to change username and password
 - Dark Mode
 - UI responsiveness for mobile devices
 - Separate reply tab on Profile Page
