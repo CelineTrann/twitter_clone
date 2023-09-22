@@ -16,7 +16,7 @@
     <i class="fa fa-caret-down rotate-0" aria-hidden="true"></i>
 </div>
 <div class="timeline-segment panel">
-    <form action="" method="post">
+    <form action="{% url 'change_username' %}" method="post">
         {% csrf_token %}
         {{ username_change_form.username }}
         <input type="submit" value="Save" class="btn post-btn settings-btn">
