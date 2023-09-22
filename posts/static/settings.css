@@ -10,13 +10,28 @@
     background-color: var(--gray-hover);
 }
 
-.active-accordian {
-    border-bottom: none;
-}
-
 .panel {
     display: none;
     overflow: hidden;
+}
+
+.panel > form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.settings-btn {
+    width: 15%;
+    align-self: end;
+}
+
+input[type=password] {
+    padding: 5px;
+}
+
+.active-accordian {
+    border-bottom: none;
 }
 
 .rotate-180 {

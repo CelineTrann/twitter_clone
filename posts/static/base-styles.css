@@ -54,6 +54,7 @@ nav {
 
 .btn {
     border-radius: 400px;
+    border: 0px;
 }
 
 .nav-btn-list {

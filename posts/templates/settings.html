@@ -25,6 +25,11 @@
     <i class="fa fa-caret-down rotate-0" aria-hidden="true"></i>
 </div>
 <div class="timeline-segment panel">
-    This is the panel
+    <form action="" method="post">
+        {{ password_change_form.old_password }}
+        {{ password_change_form.new_password1 }}
+        {{ password_change_form.new_password2 }}
+        <input type="submit" value="Save" class="btn post-btn settings-btn">
+    </form>
 </div>
 {% endblock content %}
