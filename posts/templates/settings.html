@@ -26,6 +26,7 @@
 </div>
 <div class="timeline-segment panel">
     <form action="" method="post">
+        {% csrf_token %}
         {{ password_change_form.old_password }}
         {{ password_change_form.new_password1 }}
         {{ password_change_form.new_password2 }}

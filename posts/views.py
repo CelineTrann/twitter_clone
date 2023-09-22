@@ -4,7 +4,7 @@ from .forms import TweetForm, UserProfileForm, CustomUserCreationForm, CustomPas
 
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login
+from django.contrib.auth import login, update_session_auth_hash
 from django.contrib import messages
 from django.db.models import Q
 
@@ -81,6 +81,7 @@ def edit_profile(request):
         profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if profile_form.is_valid():
             profile_form.save()
+            messages.success(request, "Profile Updated")
 
     return render(request, "edit_profile.html", {"modal_form": modal_form, "profile_form": profile_form})
 
@@ -139,6 +140,13 @@ def tweet_detail(request, request_username, tweet_id):
 
 def settings(request):
     change_password_form = CustomPasswordChangeForm(user=request.user)
+    
+    if request.method == 'POST':
+        change_password_form = CustomPasswordChangeForm(user=request.user, data=request.POST)
+        if change_password_form.is_valid():
+            change_password_form.save()
+            messages.success(request, 'Password Changed')
+
     return render(request, "settings.html", { 'password_change_form': change_password_form})
 
 ## ------------------------LOGGED IN POST VIEWS------------------------ 

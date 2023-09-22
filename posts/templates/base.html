@@ -35,7 +35,7 @@
                     <p>Home</p>        
                 </div>
             </a>
-            <a href="{% url 'profile' user.username %}" class="nav-link" id="profile-button">
+            <a href="{% url 'profile' request.user.username %}" class="nav-link" id="profile-button">
                 <div class="nav-button btn">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <p>Profile</p>        
