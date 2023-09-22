@@ -3,7 +3,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid var(--inverse-color);
+    border-bottom: 1px solid var(--gray-hover);
 }
 
 .option-btn {

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="/static/components/options-container.css" />
+    <link rel="stylesheet" href="/static/components/profile-picture.css" />
+    <link rel="stylesheet" href="/static/components/tweet-styles.css" />
+
+    <link rel="stylesheet" href="/static/follow-styles.css" />
+    <link rel="stylesheet" href="/static/search.css" />
+
+    <script src="/static/follow.js"></script>
+    <script src="/static/components/tweet.js"></script>
+{% endblock head %}
+
+{% block title %}Search{% endblock title %}
+
+{% block content %}
+<div class="timeline-header">
+    <h1>Search</h1>
+</div>
+
+<div class="options-container">
+    <a href="{% url 'search' 'Users' %}" class="option-btn">
+        <div class="option {% if type == "Users" %} current-option {% endif %}">
+            Users
+        </div>
+    </a>
+    <a href="{% url 'search' 'Tweets' %}" class="option-btn">
+        <div class="option {% if type == "Tweets" %} current-option {% endif %}">
+            Tweets
+        </div>
+    </a>
+</div>
+<div class="search-bar">
+    <form action="{% url 'search' type %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="search" id="search-bar" class="search-bar-input" placeholder="Search {{ type }}">
+        <input type="submit" hidden />
+    </form>
+    <i class="fa fa-search" aria-hidden="true"></i>
+</div>
+
+{% if type == 'Users' %}
+    {% include "components/user-list.html" with follow_list=result %}
+{% elif type == 'Tweets' %}
+    {% include 'components/tweet.html' with Tweets=result %}
+{% endif %}
+
+{% endblock content %}

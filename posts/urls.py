@@ -19,6 +19,8 @@ urlpatterns = [
     path("profile/<str:request_username>/followers", views.follow, name="followers"),
     path("follow/", views.follow_unfollow, name="follow_unfollow"),
 
+    path("search/<str:type>", views.search, name="search"),
+
     path("accounts/login/", auth_views.LoginView.as_view(authentication_form=CustomLoginForm), name='login'),
     path("accounts/registration", views.registration, name="registration"),
     path("accounts/profile_creation", views.profile_creation, name="profile_creation"),

@@ -35,6 +35,12 @@
                     <p>Home</p>        
                 </div>
             </a>
+            <a href="{% url 'search' 'Users' %}" class="nav-link" id="settings-button">
+                <div class="nav-button btn">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <p>Search</p>        
+                </div>
+            </a>
             <a href="{% url 'profile' request.user.username %}" class="nav-link" id="profile-button">
                 <div class="nav-button btn">
                     <i class="fa fa-user" aria-hidden="true"></i>
