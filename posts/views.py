@@ -108,14 +108,15 @@ def follow(request, request_username):
 
 @login_required
 def search(request, type):
+    result = []
     if request.method == 'POST':
         query = request.POST['search']
         if type == 'Users':
-            pass
+            result = Profile.objects.filter(Q(user__username__icontains=query) | Q(display_name__icontains=query))
         elif type == 'Tweets':
             pass
 
-    return render(request, 'search.html', {"type": type})
+    return render(request, 'search.html', {"type": type, 'result': result})
 
 
 @login_required
