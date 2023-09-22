@@ -26,7 +26,7 @@
     align-self: end;
 }
 
-input[type=password] {
+input[type=password], input[type=text] {
     padding: 5px;
 }
 

@@ -50,3 +50,11 @@ class CustomPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(widget=PasswordInput(attrs={'placeholder':'Current Password'}))
     new_password1 = forms.CharField(widget=PasswordInput(attrs={'placeholder':'New Password'}))
     new_password2 = forms.CharField(widget=PasswordInput(attrs={'placeholder':'Confirm Password'}))
+
+class ChangeUsernameForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', )
+        widgets = {
+            'username': forms.TextInput(attrs={'placeholder': 'Username'}),
+        }

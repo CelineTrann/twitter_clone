@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Tweet, Profile, User, Tweet_Retweets, Tweet_Convo
-from .forms import TweetForm, UserProfileForm, CustomUserCreationForm, CustomPasswordChangeForm
+from .forms import TweetForm, UserProfileForm, CustomUserCreationForm, CustomPasswordChangeForm, ChangeUsernameForm
 
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
@@ -141,7 +141,9 @@ def tweet_detail(request, request_username, tweet_id):
 @login_required
 def settings(request):
     change_password_form = CustomPasswordChangeForm(user=request.user)
-    return render(request, "settings.html", { 'password_change_form': change_password_form})
+    change_username_form = ChangeUsernameForm(initial={"username": request.user.username})
+    
+    return render(request, "settings.html", { 'username_change_form': change_username_form, 'password_change_form': change_password_form})
 
 @login_required
 def change_password(request):
