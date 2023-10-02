@@ -9,10 +9,14 @@ Implemented using: Django, HTML, CSS, JQuery
 - Users can create a display name and bio
 - Users can upload a profile picture and cover banner picture 
 
+![User sign up flow](demo/register.gif)
+
 ### Log In / Logout
 - Users can login using thier username and email
 - If you forget your password, it can be reset by entering your email
 - You can logout by clicking the bottom left button with your username on it
+
+![User logout login flow](demo/logout-login.gif)
 
 ### Tweets
 - You can like, retweet, and reply to tweets
@@ -21,12 +25,21 @@ Implemented using: Django, HTML, CSS, JQuery
 - You can delete your own tweets by clicking on the ellipse
 - Message will pop up at the bottom of the page when a tweet has been successfully posted or deleted
 
+![Creating a tweet from the Home page](demo/direct-tweet.gif)
+![Creating a tweet from the modal](demo/modal-tweet.gif)
+![Deleting a tweet](demo/delete-tweet.gif)
+![Liking and retweet a tweet](demo/like-retweet.gif)
+![Replying to a tweet](demo/reply.gif)
+
 ### Home Page
 - Your homepage consists of all posts created or retweeted by you and those you follow
 
 ### Search
 - Users can search for other users by their username or display name
 - Users can serach for tweets based on the tweet contents
+
+![Search for a user](demo/search-user.gif)
+![Search for a tweet](demo/search-tweet.gif)
 
 ### Profile
 - You can see more information about a user on their profile (username, display name, bio, date they joined)
@@ -37,8 +50,17 @@ Implemented using: Django, HTML, CSS, JQuery
 - You can follow/unfollow them
 - If the profile is yours, you can edit your own profile from this page
 
+![The current user's profile page](demo/profile.gif)
+![Another user's profile page](demo/user-profile.gif)
+![Edit your own profile](demo/edit-profile.gif)
+![List of a users following and who they follow](demo/following-followers.gif)
+![Following a user](demo/follow.gif)
+
+
 ### Settings
 - Users can change their username and password 
+
+![Settings page](demo/settings.gif)
 
 ## Planned Features
 - Dark Mode
