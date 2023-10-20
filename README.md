@@ -3,6 +3,19 @@ A fully functional web applications with the Twitter UI and functionality.
 
 Implemented using: Django, HTML, CSS, JQuery
 
+## Table of Contents
+- [Current functionality](#current-functionality)
+  - [Create an account](#create-an-account)
+  - [Log In / Logout](#log-in--logout)
+  - [Tweets](#tweets)
+  - [Home Page](#home-page)
+  - [Search](#search)
+  - [Profile](#profile)
+  - [Settings](#settings)
+- [Planned Features](#planned-features)
+- [Set Up](#set-up)
+  - [Notes](#notes)
+
 ## Current functionality
 ### Create an account
 - Users sign up with a username, email, and password
